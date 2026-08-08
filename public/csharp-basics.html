@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="C#の基本文法を、豊富なコード例で学べる初心者向けガイド">
+  <meta name="description" content="豊富なコード例、実行結果、注意点を収録した書籍スタイルのC#初心者向けガイド">
   <meta property="og:type" content="website">
   <meta property="og:title" content="C# はじめの一歩 — 基本文法ガイド">
   <meta property="og:description" content="基礎からLINQ・非同期処理まで、18章で体系的に学ぶC#入門教材">
@@ -230,6 +230,29 @@
     .rule-box { margin: 22px 0; padding: 18px 20px; color: #fff; background: var(--ink); border-radius: 13px; }
     .rule-box strong { color: var(--yellow); }
     .rule-box p { margin: 5px 0 0; color: #cdd9e9; font-size: 13px; }
+    .book-intro { margin-top: 42px; padding: clamp(24px, 5vw, 42px); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+    .book-intro h2 { margin-bottom: 10px; }
+    .book-intro > p { margin: 0; color: var(--ink-soft); }
+    .reading-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
+    .reading-step { padding: 16px 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 11px; font-size: 12px; }
+    .reading-step b { display: block; margin-bottom: 4px; color: var(--blue); font: 800 13px/1.4 Consolas, monospace; }
+    .example-block { margin: 28px 0; padding: 20px; background: #f0f7f7; border: 1px solid #b9d9da; border-radius: 14px; }
+    .example-block h3 { margin: 0 0 8px; font-size: 18px; }
+    .example-block > p { margin: 0 0 14px; color: var(--ink-soft); font-size: 13px; }
+    .example-label { display: inline-block; margin-bottom: 8px; color: var(--blue); font: 800 10px/1.4 Consolas, monospace; letter-spacing: .12em; }
+    .example-block .code-card { margin: 14px 0 0; }
+    .output-box { margin: 10px 0 0; padding: 12px 15px; color: #d9f4df; background: #14281d; border-radius: 9px; font: 12px/1.7 Consolas, monospace; white-space: pre-wrap; }
+    .output-box::before { content: "実行結果"; display: block; margin-bottom: 4px; color: #84d39b; font-size: 10px; letter-spacing: .1em; }
+    .warning { position: relative; margin: 24px 0; padding: 18px 20px 18px 58px; background: #fff0ed; border: 1px solid #edb1a9; border-radius: 13px; font-size: 13px; }
+    .warning::before { content: "⚠"; position: absolute; left: 18px; top: 17px; font-size: 23px; line-height: 1; }
+    .warning strong { display: block; color: #a43c31; }
+    .chapter-summary { margin-top: 26px; padding: 18px 20px; background: #e8edf5; border: 1px solid #bdc8da; border-radius: 12px; }
+    .chapter-summary strong { display: block; margin-bottom: 7px; color: var(--ink); }
+    .chapter-summary ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 13px; }
+    .practice { margin: 20px 0 0; padding: 17px 20px; background: #fff8df; border: 1px dashed #cba62c; border-radius: 12px; }
+    .practice strong { display: block; color: #876800; }
+    .practice p { margin: 4px 0 0; color: var(--ink-soft); font-size: 13px; }
+    .term { color: var(--blue); font-weight: 800; }
 
     .syntax-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0; padding: 18px; color: #fff; background: var(--ink); border-radius: 13px; font: 700 13px/1.6 Consolas, monospace; }
     .syntax-line span { padding: 4px 8px; border-radius: 5px; }
@@ -263,6 +286,7 @@
       .roadmap { max-width: 420px; }
       .grid-3 { grid-template-columns: 1fr; }
       .cheat-grid { grid-template-columns: 1fr; }
+      .reading-steps { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 600px) {
@@ -278,6 +302,7 @@
       pre { padding: 18px 14px; font-size: 12px; }
       .type-table { display: block; overflow-x: auto; white-space: nowrap; }
       .cheat-row { grid-template-columns: 105px 1fr; }
+      .reading-steps { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -326,7 +351,7 @@
         <p class="hero-lead">「書き方のルール」を、動くコードと一緒に理解する。プログラミングが初めてでも迷わない、C#基本文法の入門ノートです。</p>
         <div class="hero-meta">
           <span class="meta-chip"><b>18</b> レッスン</span>
-          <span class="meta-chip"><b>約90分</b> で一周</span>
+          <span class="meta-chip"><b>数日かけて</b> じっくり学ぶ</span>
           <span class="meta-chip"><b>.NET 8+</b> 対応</span>
         </div>
       </header>
@@ -342,6 +367,19 @@
             <div class="road-step"><span>02</span>まねる</div>
             <div class="road-step"><span>03</span>変える</div>
           </div>
+        </section>
+
+        <section class="book-intro" aria-labelledby="how-to-read">
+          <p class="section-kicker">HOW TO USE THIS BOOK</p>
+          <h2 id="how-to-read">この教材の読み方</h2>
+          <p>各章は「概念を知る → 例を読む → 実行結果を確かめる → 注意点を理解する」の順に構成しています。最初から順番に読んでも、左の目次から必要な章だけ参照しても構いません。</p>
+          <div class="reading-steps">
+            <div class="reading-step"><b>01 / READ</b>用語と文法の目的を理解する</div>
+            <div class="reading-step"><b>02 / TRACE</b>コードを上から追い、結果を予想する</div>
+            <div class="reading-step"><b>03 / RUN</b>コピーして実行し、値を変えてみる</div>
+            <div class="reading-step"><b>04 / REVIEW</b>注意点と章末まとめを読み直す</div>
+          </div>
+          <div class="warning"><strong>コードは「眺める」だけでは身につきにくい</strong>1つの例につき最低1か所は値や条件を変更してください。予想と結果が違った箇所が、もっとも良い学習ポイントになります。</div>
         </section>
 
         <section class="lesson" id="structure">
@@ -380,6 +418,21 @@ dotnet run</code></pre>
         <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Hello"</span>);
     }
 }</code></pre></div></details>
+          <div class="example-block">
+            <span class="example-label">EXAMPLE 01 — 複数の文とコメント</span>
+            <h3>処理の順序を追ってみる</h3>
+            <p>代入も出力も1つの「文」です。上から1行ずつ状態が変わることを意識します。</p>
+            <div class="code-card"><div class="code-bar"><span>order.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">int</span> count = <span class="num">1</span>;              <span class="cm">// ① 変数を作る</span>
+count = count + <span class="num">1</span>;          <span class="cm">// ② 2になる</span>
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(count); <span class="cm">// ③ 表示する</span>
+
+<span class="cm">/* 複数行コメントは
+   このように書ける */</span></code></pre></div>
+            <div class="output-box">2</div>
+          </div>
+          <div class="warning"><strong>コンパイルエラーと実行時エラーを区別する</strong>セミコロン忘れや名前の間違いは実行前に見つかるコンパイルエラーです。0除算など実行して初めて起きる問題は実行時エラーです。まずエラーの種類と行番号を確認します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>C#の文は基本的に上から下へ実行される</li><li>多くの文は <code>;</code>、処理のまとまりは <code>{ }</code> で表す</li><li><code>dotnet run</code> でビルドと実行をまとめて行える</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>名前・今日の日付・学習目標を、それぞれ別の <code>Console.WriteLine</code> で表示してください。</p></div>
         </section>
 
         <section class="lesson" id="variables">
@@ -420,6 +473,24 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
             <article class="info-card"><span class="token">{ block }</span><h3>スコープ</h3><p>変数を使える範囲です。内側で宣言した変数は外側から使えません。</p></article>
           </div>
           <div class="rule-box"><strong>命名の基本</strong><p>ローカル変数と引数は <code>camelCase</code>、クラス・メソッド・プロパティは <code>PascalCase</code>。意味が伝わる英単語を使い、<code>x</code> のような短い名前は小さな範囲に限定します。</p></div>
+          <div class="example-block">
+            <span class="example-label">EXAMPLE 02 — 型変換と計算</span>
+            <h3>整数同士の割り算に注意する</h3>
+            <p>演算に参加する型によって結果の型が決まります。小数結果が必要なら、先にキャストします。</p>
+            <div class="code-card"><div class="code-bar"><span>numbers.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">int</span> total = <span class="num">10</span>;
+<span class="type">int</span> people = <span class="num">4</span>;
+
+<span class="type">int</span> truncated = total / people;              <span class="cm">// 2</span>
+<span class="type">double</span> exact = (<span class="type">double</span>)total / people;       <span class="cm">// 2.5</span>
+<span class="type">decimal</span> price = <span class="num">1980m</span>;
+<span class="type">decimal</span> taxIncluded = price * <span class="num">1.10m</span>;</code></pre></div>
+            <div class="output-box">truncated: 2
+exact: 2.5
+taxIncluded: 2178.00</div>
+          </div>
+          <div class="warning"><strong>数値型は目的に合わせる</strong><code>double</code> は近似値なので、金額のように誤差を避けたい計算は <code>decimal</code> を使います。また、型の最大値を超えるとオーバーフローします。必要なら <code>checked</code> で検出します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>変数には型・名前・値があり、型によって可能な操作が決まる</li><li><code>var</code> もコンパイル時には具体的な型へ決まる</li><li>値型の代入は値をコピーし、参照型の代入は参照をコピーする</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>商品の単価・個数・税率を変数にし、税込合計を <code>decimal</code> で計算してください。</p></div>
         </section>
 
         <section class="lesson" id="strings">
@@ -455,6 +526,24 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
             </tbody>
           </table>
           <div class="tip"><strong>入力には TryParse を優先</strong><code>int.Parse</code> は変換できない文字で例外になります。<code>TryParse</code> なら成否を <code>bool</code> で受け取れるため、安全に分岐できます。</div>
+          <div class="example-block">
+            <span class="example-label">EXAMPLE 03 — 分割・整形・結合</span>
+            <h3>カンマ区切りの入力を整える</h3>
+            <p><code>Split</code> で分割し、<code>Trim</code> で余分な空白を除き、<code>Join</code> で再び結合します。</p>
+            <div class="code-card"><div class="code-bar"><span>format.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">string</span> input = <span class="str">"  C#, Web,  Game "</span>;
+<span class="type">string</span>[] parts = input.<span class="fn">Split</span>(<span class="str">','</span>);
+
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; parts.Length; i++)
+    parts[i] = parts[i].<span class="fn">Trim</span>();
+
+<span class="type">string</span> result = <span class="type">string</span>.<span class="fn">Join</span>(<span class="str">" / "</span>, parts);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(result);</code></pre></div>
+            <div class="output-box">C# / Web / Game</div>
+          </div>
+          <details class="deep-dive"><summary>エスケープ文字とraw文字列</summary><div><p><code>\n</code> は改行、<code>\t</code> はタブ、<code>\"</code> は引用符です。C# 11以降のraw文字列 <code>""" ... """</code> はJSONや複数行テキストをそのまま書くときに便利です。</p></div></details>
+          <div class="warning"><strong>stringは変更不可（immutable）</strong><code>Replace</code> や <code>Trim</code> は元の文字列を変更せず、新しい文字列を返します。大量の結合をループで行う場合は <code>StringBuilder</code> を検討します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>コンソール入力は <code>string?</code> として受け取る</li><li>数値変換は失敗を扱える <code>TryParse</code> が基本</li><li>文字列補間、分割、置換、空白除去を組み合わせて整形する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>「姓,名」の入力を分割し、<code>名 姓</code> の順へ並べ替えて表示してください。</p></div>
         </section>
 
         <section class="lesson" id="operators">
@@ -478,6 +567,18 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 <span class="type">bool</span> hasDiscount = canBuy &amp;&amp; isMember;</code></pre>
           </div>
           <div class="tip"><strong><code>=</code> と <code>==</code> は別物</strong><code>=</code> は値を入れる「代入」、<code>==</code> は同じか調べる「比較」です。初心者が特に間違えやすいポイントです。</div>
+          <div class="example-block"><span class="example-label">EXAMPLE 04 — 優先順位と複合代入</span><h3>括弧で計算の意図を明確にする</h3><p>乗除算は加減算より先です。読者が迷う計算は、優先順位を知っていても括弧を付けます。</p><div class="code-card"><div class="code-bar"><span>precedence.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">int</span> basePrice = <span class="num">1000</span>;
+<span class="type">int</span> shipping = <span class="num">300</span>;
+<span class="type">int</span> quantity = <span class="num">2</span>;
+
+<span class="type">int</span> totalA = basePrice + shipping * quantity;   <span class="cm">// 1600</span>
+<span class="type">int</span> totalB = (basePrice + shipping) * quantity; <span class="cm">// 2600</span>
+
+totalB += <span class="num">200</span>; <span class="cm">// totalB = totalB + 200</span>
+quantity++;  <span class="cm">// quantityを1増やす</span></code></pre></div><div class="output-box">totalA: 1600<br>totalB: 2800<br>quantity: 3</div></div>
+          <div class="warning"><strong>小数の比較と短絡評価</strong><code>double</code> を <code>==</code> で厳密比較すると計算誤差で意図しない結果になることがあります。また <code>&amp;&amp;</code> の右側は左側がtrueのときだけ評価されるため、null確認を先に書けます。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>算術・比較・論理演算子は、それぞれ値の計算・比較・条件結合に使う</li><li>複雑な式は括弧と中間変数で意図を見せる</li><li><code>&amp;&amp;</code> と <code>||</code> は短絡評価される</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>所持金・価格・在庫数を使い、「購入可能か」を1つのbool式で判定してください。</p></div>
         </section>
 
         <section class="lesson" id="conditions">
@@ -516,6 +617,19 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 };</code></pre>
           </div>
           <ul class="concept-list"><li>単純な二択は三項演算子 <code>条件 ? trueの値 : falseの値</code> でも書けます。</li><li><code>&amp;&amp;</code> と <code>||</code> は左から評価し、結果が確定した時点で残りを評価しない「短絡評価」を行います。</li></ul>
+          <div class="example-block"><span class="example-label">EXAMPLE 05 — ガード節</span><h3>異常な条件を先に終わらせる</h3><p>ネストを深くせず、読者が「正常な流れ」を追いやすくする書き方です。</p><div class="code-card"><div class="code-bar"><span>guard-clause.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">string</span> <span class="fn">GetTicketType</span>(<span class="type">int</span> age)
+{
+    <span class="kw">if</span> (age &lt; <span class="num">0</span>)
+        <span class="kw">throw new</span> <span class="type">ArgumentOutOfRangeException</span>(<span class="kw">nameof</span>(age));
+
+    <span class="kw">if</span> (age &lt; <span class="num">6</span>) <span class="kw">return</span> <span class="str">"無料"</span>;
+    <span class="kw">if</span> (age &lt; <span class="num">18</span>) <span class="kw">return</span> <span class="str">"子ども"</span>;
+    <span class="kw">if</span> (age &gt;= <span class="num">65</span>) <span class="kw">return</span> <span class="str">"シニア"</span>;
+    <span class="kw">return</span> <span class="str">"大人"</span>;
+}</code></pre></div><div class="output-box">GetTicketType(4) → 無料<br>GetTicketType(20) → 大人<br>GetTicketType(70) → シニア</div></div>
+          <div class="warning"><strong>条件の順番で結果が変わる</strong><code>else if</code> は最初にtrueになったブロックだけを実行します。広い条件を先に書くと、後の細かい条件へ到達しません。境界値（0、59、60、79、80など）を必ず確認します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>二択・段階的判定・値による分岐で <code>if</code> と <code>switch</code> を使い分ける</li><li>異常条件を先に返すガード節でネストを浅くする</li><li>境界値を例にして条件漏れや重複を確認する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>気温を受け取り、「寒い・快適・暑い」を返すメソッドを作り、境界値も試してください。</p></div>
         </section>
 
         <section class="lesson" id="loops">
@@ -553,6 +667,16 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
     <span class="type">Console</span>.<span class="fn">WriteLine</span>(number);     <span class="cm">// 2, 4, 6</span>
 }</code></pre>
           </div>
+          <div class="example-block"><span class="example-label">EXAMPLE 06 — 二重ループ</span><h3>九九の一部を表形式で出す</h3><p>外側のループが行、内側のループが列を担当します。</p><div class="code-card"><div class="code-bar"><span>nested-loop.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="kw">for</span> (<span class="type">int</span> row = <span class="num">1</span>; row &lt;= <span class="num">3</span>; row++)
+{
+    <span class="kw">for</span> (<span class="type">int</span> column = <span class="num">1</span>; column &lt;= <span class="num">3</span>; column++)
+        <span class="type">Console</span>.<span class="fn">Write</span>(<span class="str">$"{row * column,3}"</span>);
+
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>();
+}</code></pre></div><div class="output-box">&nbsp;&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3<br>&nbsp;&nbsp;2&nbsp;&nbsp;4&nbsp;&nbsp;6<br>&nbsp;&nbsp;3&nbsp;&nbsp;6&nbsp;&nbsp;9</div></div>
+          <div class="warning"><strong>off-by-one（1つずれる）に注意</strong>要素数が <code>Length</code> の配列で使える最大インデックスは <code>Length - 1</code> です。通常は <code>i &lt; items.Length</code> と書き、<code>&lt;=</code> にしません。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>回数なら <code>for</code>、全要素なら <code>foreach</code>、条件継続なら <code>while</code></li><li><code>break</code> は終了、<code>continue</code> は次の繰り返しへ進む</li><li>無限ループと境界の1つずれを重点的に確認する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>1〜100のうち、3の倍数だけを合計してください。次に <code>for</code> と <code>while</code> の両方で書いてみます。</p></div>
         </section>
 
         <section class="lesson" id="methods">
@@ -591,6 +715,18 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 <span class="type">double</span> <span class="fn">Square</span>(<span class="type">double</span> x) =&gt; x * x;</code></pre>
           </div>
           <ul class="concept-list"><li><code>ref</code> は呼び出し元の変数を直接変更、<code>out</code> は複数の結果を返す用途に使えます。</li><li>1行で結果を返すメソッドは <code>=&gt;</code> を使った「式形式」で短く書けます。</li><li>メソッドは1つの役割に絞り、名前だけで何をするか分かるようにします。</li></ul>
+          <div class="example-block"><span class="example-label">EXAMPLE 07 — 小さな責務へ分ける</span><h3>料金計算と表示を別のメソッドにする</h3><p>計算と画面出力を分けると、計算だけをテストしやすくなります。</p><div class="code-card"><div class="code-bar"><span>separation.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">decimal</span> <span class="fn">CalculateTotal</span>(<span class="type">decimal</span> price, <span class="type">int</span> quantity)
+{
+    <span class="kw">if</span> (price &lt; <span class="num">0</span> || quantity &lt; <span class="num">0</span>)
+        <span class="kw">throw new</span> <span class="type">ArgumentOutOfRangeException</span>();
+    <span class="kw">return</span> price * quantity;
+}
+
+<span class="type">decimal</span> total = <span class="fn">CalculateTotal</span>(<span class="num">480m</span>, <span class="num">3</span>);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"合計: {total:N0}円"</span>);</code></pre></div><div class="output-box">合計: 1,440円</div></div>
+          <div class="warning"><strong>引数を増やしすぎない</strong>引数が多いメソッドは呼び間違いやすく、役割も広がりがちです。関連する値はクラスやrecordへまとめ、bool引数で動作を切り替えるより別メソッドに分けます。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>メソッドは入力・処理・出力を持つ再利用可能な部品</li><li>1つの役割に絞り、副作用の少ない計算メソッドを作る</li><li>引数と戻り値の型を、メソッドの契約として考える</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>摂氏を華氏へ変換する <code>ToFahrenheit(double celsius)</code> を作り、-10、0、30で試してください。</p></div>
         </section>
 
         <section class="lesson" id="collections">
@@ -618,6 +754,18 @@ tasks.<span class="fn">Add</span>(<span class="str">"ミニアプリを作る"</
             <tbody><tr><td>要素数</td><td><code>Length</code></td><td><code>Count</code></td></tr><tr><td>追加・削除</td><td>不可</td><td><code>Add / Remove</code></td></tr><tr><td>存在確認</td><td><code>Array.Exists</code></td><td><code>Contains</code></td></tr><tr><td>並べ替え</td><td><code>Array.Sort</code></td><td><code>Sort</code></td></tr></tbody>
           </table>
           <div class="tip"><strong>範囲外アクセスに注意</strong>要素数3のインデックスは <code>0, 1, 2</code> です。<code>items[3]</code> は <code>IndexOutOfRangeException</code> になります。</div>
+          <div class="example-block"><span class="example-label">EXAMPLE 08 — 追加・検索・削除</span><h3>買い物リストを更新する</h3><p>変更可能な順序付きデータには <code>List&lt;T&gt;</code> が向いています。</p><div class="code-card"><div class="code-bar"><span>shopping-list.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">List&lt;string&gt;</span> items = <span class="kw">new</span>() { <span class="str">"牛乳"</span>, <span class="str">"パン"</span> };
+items.<span class="fn">Add</span>(<span class="str">"卵"</span>);
+
+<span class="kw">if</span> (items.<span class="fn">Contains</span>(<span class="str">"パン"</span>))
+    items.<span class="fn">Remove</span>(<span class="str">"パン"</span>);
+
+items.<span class="fn">Sort</span>();
+<span class="kw">foreach</span> (<span class="type">string</span> item <span class="kw">in</span> items)
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"・{item}"</span>);</code></pre></div><div class="output-box">・卵<br>・牛乳</div></div>
+          <div class="warning"><strong>列挙中にコレクションを変更しない</strong><code>foreach</code> の途中で同じListへ <code>Add</code> や <code>Remove</code> を行うと例外になります。削除対象を先に集める、後ろからforで回す、<code>RemoveAll</code> を使うなどで対応します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>固定長なら配列、増減する順序付きデータならList</li><li>インデックスは0から始まり、末尾は <code>Count - 1</code></li><li>要素型を統一することでコンパイル時に誤りを検出できる</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>5件の点数をListに追加し、最高点・最低点・平均点を表示してください。</p></div>
         </section>
 
         <section class="lesson" id="keyed-collections">
@@ -645,6 +793,19 @@ tasks.<span class="fn">Add</span>(<span class="str">"ミニアプリを作る"</
 (<span class="type">string</span> Name, <span class="type">int</span> Score) result = (<span class="str">"Aoi"</span>, <span class="num">92</span>);</code></pre>
           </div>
           <div class="rule-box"><strong>選択の目安</strong><p>順番で扱うなら <code>List</code>、名前で探すなら <code>Dictionary</code>、重複をなくすなら <code>HashSet</code>。目的から逆算して選びます。</p></div>
+          <div class="example-block"><span class="example-label">EXAMPLE 09 — 単語の出現回数</span><h3>Dictionaryで集計する</h3><p>単語をキー、出現回数を値にします。未知のキーを初期化してから加算します。</p><div class="code-card"><div class="code-bar"><span>word-count.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">string</span>[] words = { <span class="str">"C#"</span>, <span class="str">"Web"</span>, <span class="str">"C#"</span>, <span class="str">"Game"</span> };
+<span class="type">Dictionary&lt;string, int&gt;</span> counts = <span class="kw">new</span>();
+
+<span class="kw">foreach</span> (<span class="type">string</span> word <span class="kw">in</span> words)
+{
+    <span class="kw">if</span> (!counts.<span class="fn">ContainsKey</span>(word)) counts[word] = <span class="num">0</span>;
+    counts[word]++;
+}
+
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(counts[<span class="str">"C#"</span>]);</code></pre></div><div class="output-box">2</div></div>
+          <div class="warning"><strong>存在しないキーを[]で読むと例外</strong><code>dictionary[key]</code> はキーがなければ <code>KeyNotFoundException</code> です。存在が不明なときは <code>TryGetValue</code> を使います。文字列キーの大文字小文字を同一視するかも最初に決めます。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>Dictionaryはキー検索、HashSetは重複排除、タプルは小さな一時データ</li><li>検索前に存在確認するか <code>TryGetValue</code> を使う</li><li>コレクション選択はデータをどう探すかで決める</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>商品名と価格をDictionaryで管理し、入力された商品があれば価格、なければ「未登録」と表示してください。</p></div>
         </section>
 
         <section class="lesson" id="classes">
@@ -676,6 +837,20 @@ mugi.<span class="fn">Meow</span>();
             <tbody><tr><td><code>public</code></td><td>どこからでもアクセス可能</td></tr><tr><td><code>private</code></td><td>同じクラスの中だけ</td></tr><tr><td><code>protected</code></td><td>同じクラスと派生クラス</td></tr><tr><td><code>internal</code></td><td>同じプロジェクト（アセンブリ）内</td></tr></tbody>
           </table>
           <div class="grid-2"><article class="info-card"><span class="token">static</span><h3>クラスに1つ</h3><p>インスタンスではなく型そのものに属します。<code>Math.Max</code> などが例です。</p></article><article class="info-card"><span class="token">record</span><h3>値を表す型</h3><p>主にデータを保持し、内容による等価比較をしたい場合に便利です。</p></article></div>
+          <div class="example-block"><span class="example-label">EXAMPLE 10 — 状態を守るクラス</span><h3>残高を勝手に変更できないようにする</h3><p>setterを公開せず、妥当性を確認するメソッド経由でのみ状態を変えます。</p><div class="code-card"><div class="code-bar"><span>bank-account.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="kw">class</span> <span class="type">BankAccount</span>
+{
+    <span class="kw">public</span> <span class="type">decimal</span> Balance { <span class="kw">get</span>; <span class="kw">private set</span>; }
+
+    <span class="kw">public void</span> <span class="fn">Deposit</span>(<span class="type">decimal</span> amount)
+    {
+        <span class="kw">if</span> (amount &lt;= <span class="num">0</span>)
+            <span class="kw">throw new</span> <span class="type">ArgumentOutOfRangeException</span>(<span class="kw">nameof</span>(amount));
+        Balance += amount;
+    }
+}</code></pre></div></div>
+          <div class="warning"><strong>参照型の代入は同じ実体を指す</strong><code>BankAccount b = a;</code> の後で <code>b.Deposit</code> すると、<code>a.Balance</code> も変わります。独立した複製が必要なら、コピー用の処理を明示的に作ります。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>クラスは状態と、その状態を扱う操作をまとめた設計図</li><li>コンストラクターで必須値を受け取り、不正な状態を作らせない</li><li>必要最小限だけpublicにすることがカプセル化の基本</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>名前と在庫数を持つ <code>Product</code> クラスを作り、在庫を減らすメソッドで負数にならないよう検証してください。</p></div>
         </section>
 
         <section class="lesson" id="oop">
@@ -701,6 +876,17 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
           </div>
           <ul class="concept-list"><li><strong>カプセル化：</strong>内部の状態を隠し、公開メソッド経由で安全に操作します。</li><li><strong>継承：</strong><code>Dog : Animal</code> のように既存クラスを拡張します。<code>virtual / override</code> で動作を差し替えられます。</li><li><strong>インターフェイス：</strong>実装を持たない共通契約を定義し、差し替えやテストを容易にします。</li></ul>
           <div class="tip"><strong>継承よりコンポジションも検討</strong>「〜である（is-a）」が明確なら継承、「〜を持つ（has-a）」なら別オブジェクトを組み合わせる設計が自然です。</div>
+          <div class="example-block"><span class="example-label">EXAMPLE 11 — 実装を差し替える</span><h3>同じ契約を別クラスで実装する</h3><p>呼び出し側は具体的な通知方法を知らず、<code>INotifier</code> だけに依存します。</p><div class="code-card"><div class="code-bar"><span>polymorphism.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">List&lt;INotifier&gt;</span> notifiers = <span class="kw">new</span>()
+{
+    <span class="kw">new</span> <span class="type">EmailNotifier</span>(),
+    <span class="kw">new</span> <span class="type">ConsoleNotifier</span>()
+};
+
+<span class="kw">foreach</span> (<span class="type">INotifier</span> item <span class="kw">in</span> notifiers)
+    item.<span class="fn">Send</span>(<span class="str">"完了"</span>);</code></pre></div><div class="output-box">Email: 完了<br>Console: 完了</div></div>
+          <div class="warning"><strong>深い継承階層を作らない</strong>基底クラスの変更が多くの派生クラスへ影響します。共通コードがあるという理由だけで継承せず、契約はinterface、処理の再利用は小さな部品の組み合わせも検討します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>継承はis-a、コンポジションはhas-aの関係</li><li>interfaceを介すと実装の差し替えとテストが容易になる</li><li>ポリモーフィズムにより異なる実装を共通の型で扱える</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p><code>IShape</code> に <code>GetArea()</code> を定義し、CircleとRectangleで別々に実装してください。</p></div>
         </section>
 
         <section class="lesson" id="nullable">
@@ -721,6 +907,19 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
           </div>
           <table class="type-table"><thead><tr><th>記号</th><th>意味</th></tr></thead><tbody><tr><td><code>T?</code></td><td>nullを許可する型</td></tr><tr><td><code>?.</code></td><td>nullなら処理を止めてnullを返す</td></tr><tr><td><code>??</code></td><td>nullのとき代わりの値を使う</td></tr><tr><td><code>!</code></td><td>「nullではない」とコンパイラへ伝える。乱用は避ける</td></tr></tbody></table>
           <div class="rule-box"><strong>基本方針</strong><p>可能ならnullを作らない設計にし、必要な場所だけ <code>?</code> を付けます。警告を <code>!</code> で消す前に、nullになる経路を確認しましょう。</p></div>
+          <div class="example-block"><span class="example-label">EXAMPLE 12 — nullチェックを入口に集める</span><h3>ガード節で以後の処理を単純にする</h3><p>最初にnullを排除すると、その後は非nullとして安全に扱えます。</p><div class="code-card"><div class="code-bar"><span>null-guard.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">string</span> <span class="fn">NormalizeName</span>(<span class="type">string</span>? name)
+{
+    <span class="kw">if</span> (<span class="type">string</span>.<span class="fn">IsNullOrWhiteSpace</span>(name))
+        <span class="kw">return</span> <span class="str">"ゲスト"</span>;
+
+    <span class="kw">return</span> name.<span class="fn">Trim</span>();
+}
+
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">NormalizeName</span>(<span class="str">"  Aoi  "</span>));
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">NormalizeName</span>(<span class="kw">null</span>));</code></pre></div><div class="output-box">Aoi<br>ゲスト</div></div>
+          <div class="warning"><strong>null免責演算子 ! は保証ではない</strong><code>value!</code> はコンパイラ警告を抑えるだけで、実行時のnullを防ぎません。外部入力・DB・APIの値は実際にチェックします。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li><code>T?</code> はnullの可能性を型に表す</li><li><code>?.</code>、<code>??</code>、パターンマッチで安全に分岐する</li><li>nullable警告は設計上の問題を見つける手掛かりとして扱う</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>null、空文字、空白だけの文字列、通常の名前を受け取り、安全に表示名を返す処理を作ってください。</p></div>
         </section>
 
         <section class="lesson" id="exceptions">
@@ -741,6 +940,22 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
           </div>
           <div class="tip"><strong>まずはエラー文を読む</strong>エラーは「失敗」ではなく、直す場所を教えるヒントです。例外の種類・メッセージ・行番号の3つを確認しましょう。</div>
           <ul class="concept-list"><li><code>catch (Exception ex)</code> で情報を受け取り、<code>ex.Message</code> やスタックトレースを記録できます。</li><li><code>finally</code> は成功・失敗にかかわらず実行され、後始末に使います。</li><li><code>throw new ArgumentException(...)</code> で不正な状態を呼び出し元へ通知できます。</li><li>入力ミスのように予想できる失敗は、例外より <code>TryParse</code> などで扱います。</li></ul>
+          <div class="example-block"><span class="example-label">EXAMPLE 13 — 例外を種類別に扱う</span><h3>具体的な例外から先にcatchする</h3><p>復旧方法が異なる場合だけ分け、最後に想定外の例外を記録します。</p><div class="code-card"><div class="code-bar"><span>read-file.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="kw">try</span>
+{
+    <span class="type">string</span> text = <span class="type">File</span>.<span class="fn">ReadAllText</span>(<span class="str">"settings.txt"</span>);
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(text);
+}
+<span class="kw">catch</span> (<span class="type">FileNotFoundException</span>)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"設定ファイルがありません"</span>);
+}
+<span class="kw">catch</span> (<span class="type">UnauthorizedAccessException</span>)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"読み取り権限がありません"</span>);
+}</code></pre></div></div>
+          <div class="warning"><strong>例外を握りつぶさない</strong>空の <code>catch { }</code> は障害原因を消してしまいます。復旧できない例外はログへ十分な情報を残して再throwするか、上位層へ任せます。秘密情報はログへ出しません。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>予想外の失敗は例外、通常起こり得る分岐は戻り値で扱う</li><li>具体的な例外を先、一般的な例外を後にcatchする</li><li>エラーメッセージ・例外型・スタックトレースを読む</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>存在しないファイル、数値でない入力、0除算をそれぞれ発生させ、例外型とメッセージを確認してください。</p></div>
         </section>
 
         <section class="lesson" id="linq">
@@ -763,6 +978,18 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
           </div>
           <table class="type-table"><thead><tr><th>メソッド</th><th>役割</th></tr></thead><tbody><tr><td><code>Where</code></td><td>条件に合う要素を絞り込む</td></tr><tr><td><code>Select</code></td><td>各要素を別の形へ変換する</td></tr><tr><td><code>OrderBy</code></td><td>並べ替える</td></tr><tr><td><code>Any / All</code></td><td>存在・全件の条件を調べる</td></tr><tr><td><code>Count / Sum / Average</code></td><td>件数・合計・平均を集計する</td></tr><tr><td><code>FirstOrDefault</code></td><td>最初の要素、なければ既定値を返す</td></tr></tbody></table>
           <div class="tip"><strong>遅延実行</strong>多くのLINQ操作は、<code>foreach</code> や <code>ToList()</code> で列挙されるまで実行されません。結果をその時点で固定したいなら <code>ToList()</code> を使います。</div>
+          <div class="example-block"><span class="example-label">EXAMPLE 14 — オブジェクトを集計する</span><h3>カテゴリ別の合計を求める</h3><p><code>GroupBy</code> でグループを作り、匿名型へ変換します。</p><div class="code-card"><div class="code-bar"><span>group-by.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">List&lt;Sale&gt;</span> sales = <span class="kw">new</span>()
+{
+    <span class="kw">new</span>(<span class="str">"Book"</span>, <span class="num">1200</span>), <span class="kw">new</span>(<span class="str">"Game"</span>, <span class="num">5000</span>), <span class="kw">new</span>(<span class="str">"Book"</span>, <span class="num">800</span>)
+};
+
+<span class="kw">var</span> totals = sales.<span class="fn">GroupBy</span>(x =&gt; x.Category)
+    .<span class="fn">Select</span>(g =&gt; <span class="kw">new</span> { Category = g.Key, Total = g.<span class="fn">Sum</span>(x =&gt; x.Amount) });
+
+<span class="kw">record</span> <span class="type">Sale</span>(<span class="type">string</span> Category, <span class="type">int</span> Amount);</code></pre></div><div class="output-box">Book: 2000<br>Game: 5000</div></div>
+          <div class="warning"><strong>FirstとSingleを使い分ける</strong><code>First</code> は最初の1件、<code>Single</code> は必ず1件だけであることを検証します。0件の可能性がある場合は <code>FirstOrDefault</code> を使い、戻り値のnullも処理します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>Whereで絞り、Selectで変換し、OrderByで並べる</li><li>Count・Sum・Average・GroupByで集計する</li><li>遅延実行と複数回列挙を意識し、必要な時点でToListする</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>商品一覧から1000円以上だけを価格順に並べ、「商品名: 価格」の文字列リストへ変換してください。</p></div>
         </section>
 
         <section class="lesson" id="generics">
@@ -789,6 +1016,17 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
 }</code></pre>
           </div>
           <ul class="concept-list"><li><code>&lt;T&gt;</code> のTは型パラメーター。呼び出し時に <code>int</code> や <code>string</code> などへ決まります。</li><li><code>where T : class</code> のような型制約で、使える型や操作を限定できます。</li><li><code>List&lt;T&gt;</code>、<code>Dictionary&lt;TKey,TValue&gt;</code>、<code>Task&lt;T&gt;</code> もジェネリック型です。</li></ul>
+          <div class="example-block"><span class="example-label">EXAMPLE 15 — 型安全な結果</span><h3>成功・失敗を同じ形で返す</h3><p>値の型だけを差し替えられる結果型を作ると、例外を使わない処理結果を表現できます。</p><div class="code-card"><div class="code-bar"><span>result.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">Result&lt;int&gt;</span> <span class="fn">ParseAge</span>(<span class="type">string</span> text)
+{
+    <span class="kw">return</span> <span class="type">int</span>.<span class="fn">TryParse</span>(text, <span class="kw">out</span> <span class="type">int</span> age)
+        ? <span class="kw">new</span>(<span class="kw">true</span>, age, <span class="kw">null</span>)
+        : <span class="kw">new</span>(<span class="kw">false</span>, <span class="kw">default</span>, <span class="str">"整数ではありません"</span>);
+}
+
+<span class="kw">record</span> <span class="type">Result&lt;T&gt;</span>(<span class="type">bool</span> IsSuccess, <span class="type">T</span>? Value, <span class="type">string</span>? Error);</code></pre></div></div>
+          <div class="warning"><strong>何でもジェネリックにしない</strong>複数の型で本当に同じ振る舞いをする場合に使います。型ごとの分岐が大量に必要なら、interfaceやオーバーロードの方が意図を表せることがあります。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>ジェネリックは型安全な再利用を実現する</li><li>型制約でTに必要な能力を宣言する</li><li>呼び出し側から型を推論できる場合は型引数を省略できる</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>2つの値を交換する <code>Swap&lt;T&gt;</code> を作り、intとstringの両方で試してください。</p></div>
         </section>
 
         <section class="lesson" id="delegates">
@@ -811,6 +1049,17 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
 }</code></pre>
           </div>
           <div class="grid-3"><article class="info-card"><span class="token">Func&lt;...&gt;</span><h3>値を返す処理</h3><p>最後の型引数が戻り値です。</p></article><article class="info-card"><span class="token">Action&lt;...&gt;</span><h3>値を返さない処理</h3><p><code>void</code> 相当の処理を表します。</p></article><article class="info-card"><span class="token">event</span><h3>発生を通知</h3><p>発行側と購読側を疎結合にします。</p></article></div>
+          <div class="example-block"><span class="example-label">EXAMPLE 16 — コールバック</span><h3>処理を外から受け取る</h3><p>同じデータ処理でも、表示方法を呼び出し側が決められます。</p><div class="code-card"><div class="code-bar"><span>callback.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="kw">void</span> <span class="fn">Process</span>(<span class="type">IEnumerable&lt;int&gt;</span> numbers, <span class="type">Action&lt;int&gt;</span> onItem)
+{
+    <span class="kw">foreach</span> (<span class="type">int</span> number <span class="kw">in</span> numbers)
+        onItem(number);
+}
+
+<span class="fn">Process</span>(<span class="kw">new</span>[] { <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span> },
+    number =&gt; <span class="type">Console</span>.<span class="fn">WriteLine</span>(number * number));</code></pre></div><div class="output-box">1<br>4<br>9</div></div>
+          <div class="warning"><strong>イベント購読の解除を忘れない</strong>長寿命オブジェクトのイベントを短寿命オブジェクトが購読し続けると、不要な参照が残ることがあります。不要になったら <code>-=</code> で解除します。ラムダが外側の変数を捕捉する「クロージャ」にも注意します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>ラムダ式は名前のない短い処理</li><li>Func・Action・Predicateで処理を型として表せる</li><li>eventは発行側から複数の購読側へ通知する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>Listの数値を受け取り、偶数だけを表示する処理をPredicateとActionを使って分けてください。</p></div>
         </section>
 
         <section class="lesson" id="async">
@@ -833,6 +1082,15 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
     =&gt; <span class="kw">await</span> client.<span class="fn">GetStringAsync</span>(<span class="str">"https://example.com"</span>);</code></pre>
           </div>
           <ul class="concept-list"><li>戻り値なしは <code>Task</code>、結果ありは <code>Task&lt;T&gt;</code>。<code>async void</code> は原則イベントハンドラーだけにします。</li><li><code>await</code> できる処理は、呼び出し側も通常 <code>async</code> へ伝播します。</li><li><code>.Result</code> や <code>.Wait()</code> は停止やデッドロックの原因になるため、<code>await</code> を優先します。</li><li>長時間処理は <code>CancellationToken</code> を受け取り、キャンセル可能にします。</li></ul>
+          <div class="example-block"><span class="example-label">EXAMPLE 17 — 並行して待つ</span><h3>独立した非同期処理をTask.WhenAllでまとめる</h3><p>1つずつawaitする必要がない処理は同時に開始し、全完了を待てます。</p><div class="code-card"><div class="code-bar"><span>when-all.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="type">Task&lt;string&gt;</span> userTask = <span class="fn">LoadUserAsync</span>();
+<span class="type">Task&lt;string&gt;</span> newsTask = <span class="fn">LoadNewsAsync</span>();
+
+<span class="kw">await</span> <span class="type">Task</span>.<span class="fn">WhenAll</span>(userTask, newsTask);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="kw">await</span> userTask);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="kw">await</span> newsTask);</code></pre></div></div>
+          <div class="warning"><strong>並行と並列は同じではない</strong>async/awaitは主にI/O待機を効率化します。CPU負荷の高い処理を速くする仕組みではありません。大量のタスクを無制限に開始せず、APIやファイルの同時実行数を制御します。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>awaitはTaskの完了を非同期に待つ</li><li>独立した処理はWhenAll、順序が必要なら順番にawaitする</li><li>キャンセル・タイムアウト・例外の扱いも呼び出し側まで設計する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>500ms、1000ms、1500ms待つ3つのTaskを作り、順番実行とWhenAllの所要時間を比較してください。</p></div>
         </section>
 
         <section class="lesson" id="files">
@@ -854,6 +1112,18 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
           <h3 class="mini-title">次に作ると理解が深まる3つの課題</h3>
           <div class="grid-3"><article class="info-card"><span class="token">LEVEL 1</span><h3>家計簿</h3><p>入力、型変換、List、合計計算、ファイル保存を組み合わせる。</p></article><article class="info-card"><span class="token">LEVEL 2</span><h3>タスク管理</h3><p>クラス、Dictionary、LINQ、例外処理で検索や状態更新を作る。</p></article><article class="info-card"><span class="token">LEVEL 3</span><h3>APIクライアント</h3><p>async/await、HttpClient、JSON変換、テストに挑戦する。</p></article></div>
           <div class="rule-box"><strong>学習のコツ</strong><p>読むだけで終わらず、コード例の値を変える → 結果を予想する → 実行する → エラーを読む、の順で手を動かしましょう。</p></div>
+          <div class="example-block"><span class="example-label">EXAMPLE 18 — JSONへ保存する</span><h3>オブジェクトを文字列へ変換する</h3><p><code>System.Text.Json</code> を使うと、設定やデータをJSON形式で保存できます。</p><div class="code-card"><div class="code-bar"><span>json.cs</span><button class="copy-btn" type="button">COPY</button></div><pre><code><span class="kw">using</span> <span class="type">System.Text.Json</span>;
+
+<span class="type">Settings</span> settings = <span class="kw">new</span>(<span class="str">"dark"</span>, <span class="num">16</span>);
+<span class="type">string</span> json = <span class="type">JsonSerializer</span>.<span class="fn">Serialize</span>(settings);
+<span class="kw">await</span> <span class="type">File</span>.<span class="fn">WriteAllTextAsync</span>(<span class="str">"settings.json"</span>, json);
+
+<span class="type">Settings</span>? restored = <span class="type">JsonSerializer</span>.<span class="fn">Deserialize&lt;Settings&gt;</span>(json);
+
+<span class="kw">record</span> <span class="type">Settings</span>(<span class="type">string</span> Theme, <span class="type">int</span> FontSize);</code></pre></div><div class="output-box">{"Theme":"dark","FontSize":16}</div></div>
+          <div class="warning"><strong>パスと文字コードを決めつけない</strong>カレントディレクトリは実行方法で変わることがあります。<code>Path.Combine</code> を使い、ファイルの存在・権限・同時アクセス・破損を例外として想定します。ユーザー入力をそのままパスに使いません。</div>
+          <div class="chapter-summary"><strong>この章の要点</strong><ul><li>FileとPathでOS差を意識した読み書きを行う</li><li>JSONでオブジェクトを保存・復元できる</li><li>コードが増えたらnamespace、フォルダ、プロジェクト、テストへ分割する</li></ul></div>
+          <div class="practice"><strong>手を動かす</strong><p>学習項目と完了状態をrecordで表し、ListをJSONファイルへ保存して次回起動時に読み戻してください。</p></div>
         </section>
 
         <section class="cheatsheet" id="cheatsheet">
@@ -872,6 +1142,25 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
             <div class="cheat-row"><code>Where / Select</code><span>LINQで絞り込み・変換</span></div>
             <div class="cheat-row"><code>async / await</code><span>待ち時間のある処理</span></div>
             <div class="cheat-row"><code>try / catch</code><span>例外を処理する</span></div>
+          </div>
+        </section>
+
+        <section class="cheatsheet" id="glossary">
+          <p class="section-kicker">GLOSSARY</p>
+          <h2>用語集</h2>
+          <div class="cheat-grid">
+            <div class="cheat-row"><code>コンパイル</code><span>ソースコードを実行可能な形へ変換すること</span></div>
+            <div class="cheat-row"><code>型</code><span>値の種類と可能な操作を決めるルール</span></div>
+            <div class="cheat-row"><code>インスタンス</code><span>クラスという設計図から作られた実体</span></div>
+            <div class="cheat-row"><code>スコープ</code><span>変数や名前を参照できる範囲</span></div>
+            <div class="cheat-row"><code>引数</code><span>メソッドへ渡す入力値</span></div>
+            <div class="cheat-row"><code>戻り値</code><span>メソッドが呼び出し元へ返す結果</span></div>
+            <div class="cheat-row"><code>例外</code><span>通常の処理を続けられない異常状態</span></div>
+            <div class="cheat-row"><code>イミュータブル</code><span>作成後に内容を変更できない性質</span></div>
+            <div class="cheat-row"><code>遅延実行</code><span>結果が必要になるまで処理を実行しない仕組み</span></div>
+            <div class="cheat-row"><code>副作用</code><span>戻り値以外に外部状態を変更すること</span></div>
+            <div class="cheat-row"><code>I/O</code><span>ファイル・通信・画面などとの入出力</span></div>
+            <div class="cheat-row"><code>API</code><span>機能を利用するために公開された操作の窓口</span></div>
           </div>
         </section>
       </div>

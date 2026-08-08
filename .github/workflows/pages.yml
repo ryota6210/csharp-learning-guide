@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir -p _site
           cp public/csharp-basics.html _site/index.html
+          cp public/og.png _site/og.png
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4

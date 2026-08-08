@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="C#の基本文法を、豊富なコード例で学べる初心者向けガイド">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="C# はじめの一歩 — 基本文法ガイド">
+  <meta property="og:description" content="基礎からLINQ・非同期処理まで、18章で体系的に学ぶC#入門教材">
+  <meta property="og:url" content="https://ryota6210.github.io/csharp-learning-guide/">
+  <meta property="og:image" content="https://ryota6210.github.io/csharp-learning-guide/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="C# はじめの一歩 — 基本文法ガイド">
+  <meta name="twitter:description" content="基礎からLINQ・非同期処理まで、18章で体系的に学ぶC#入門教材">
+  <meta name="twitter:image" content="https://ryota6210.github.io/csharp-learning-guide/og.png">
   <title>C# はじめの一歩 — 基本文法ガイド</title>
   <style>
     :root {
@@ -207,6 +216,21 @@
     .tip::before { content: "!"; position: absolute; left: 18px; top: 17px; display: grid; place-items: center; width: 25px; height: 25px; color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); border-radius: 50%; font: 900 14px/1 Consolas, monospace; }
     .tip strong { display: block; margin-bottom: 2px; }
 
+    .concept-list { display: grid; gap: 9px; margin: 18px 0; padding: 0; list-style: none; }
+    .concept-list li { position: relative; padding: 11px 14px 11px 42px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; font-size: 13px; }
+    .concept-list li::before { content: "→"; position: absolute; left: 15px; color: var(--coral); font-weight: 900; }
+    .concept-list code { color: var(--blue); font-weight: 700; }
+    .mini-title { margin: 30px 0 10px; font-size: 19px; line-height: 1.4; }
+    .badge { display: inline-block; margin-right: 7px; padding: 2px 7px; color: #fff; background: var(--blue); border-radius: 5px; font: 700 10px/1.6 Consolas, monospace; vertical-align: 2px; }
+    .deep-dive { margin: 18px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .deep-dive summary { padding: 13px 17px; color: var(--ink); background: #ede8da; cursor: pointer; font-weight: 700; }
+    .deep-dive > div { padding: 16px 18px; color: var(--ink-soft); font-size: 13px; }
+    .deep-dive p { margin: 0 0 10px; }
+    .deep-dive p:last-child { margin-bottom: 0; }
+    .rule-box { margin: 22px 0; padding: 18px 20px; color: #fff; background: var(--ink); border-radius: 13px; }
+    .rule-box strong { color: var(--yellow); }
+    .rule-box p { margin: 5px 0 0; color: #cdd9e9; font-size: 13px; }
+
     .syntax-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0; padding: 18px; color: #fff; background: var(--ink); border-radius: 13px; font: 700 13px/1.6 Consolas, monospace; }
     .syntax-line span { padding: 4px 8px; border-radius: 5px; }
     .syntax-type { background: var(--blue); }
@@ -273,13 +297,22 @@
       <nav class="lesson-nav">
         <a href="#structure"><span class="nav-num">01</span>プログラムの構造</a>
         <a href="#variables"><span class="nav-num">02</span>変数とデータ型</a>
-        <a href="#operators"><span class="nav-num">03</span>演算子</a>
-        <a href="#conditions"><span class="nav-num">04</span>条件分岐</a>
-        <a href="#loops"><span class="nav-num">05</span>繰り返し</a>
-        <a href="#methods"><span class="nav-num">06</span>メソッド</a>
-        <a href="#collections"><span class="nav-num">07</span>配列とリスト</a>
-        <a href="#classes"><span class="nav-num">08</span>クラスとオブジェクト</a>
-        <a href="#exceptions"><span class="nav-num">09</span>例外処理</a>
+        <a href="#strings"><span class="nav-num">03</span>文字列・入力・変換</a>
+        <a href="#operators"><span class="nav-num">04</span>演算子</a>
+        <a href="#conditions"><span class="nav-num">05</span>条件分岐</a>
+        <a href="#loops"><span class="nav-num">06</span>繰り返し</a>
+        <a href="#methods"><span class="nav-num">07</span>メソッド</a>
+        <a href="#collections"><span class="nav-num">08</span>配列とリスト</a>
+        <a href="#keyed-collections"><span class="nav-num">09</span>辞書・集合・タプル</a>
+        <a href="#classes"><span class="nav-num">10</span>クラスとオブジェクト</a>
+        <a href="#oop"><span class="nav-num">11</span>継承とインターフェイス</a>
+        <a href="#nullable"><span class="nav-num">12</span>nullとnullable</a>
+        <a href="#exceptions"><span class="nav-num">13</span>例外処理</a>
+        <a href="#linq"><span class="nav-num">14</span>LINQ</a>
+        <a href="#generics"><span class="nav-num">15</span>ジェネリック</a>
+        <a href="#delegates"><span class="nav-num">16</span>ラムダ式とイベント</a>
+        <a href="#async"><span class="nav-num">17</span>非同期処理</a>
+        <a href="#files"><span class="nav-num">18</span>ファイルとプロジェクト</a>
       </nav>
       <div class="sidebar-note">上から順番に読むと、コンソールアプリを作るための土台が身につきます。</div>
     </aside>
@@ -292,8 +325,8 @@
         <h1>C# はじめの<span>一歩。</span></h1>
         <p class="hero-lead">「書き方のルール」を、動くコードと一緒に理解する。プログラミングが初めてでも迷わない、C#基本文法の入門ノートです。</p>
         <div class="hero-meta">
-          <span class="meta-chip"><b>9</b> レッスン</span>
-          <span class="meta-chip"><b>約30分</b> で一周</span>
+          <span class="meta-chip"><b>18</b> レッスン</span>
+          <span class="meta-chip"><b>約90分</b> で一周</span>
           <span class="meta-chip"><b>.NET 8+</b> 対応</span>
         </div>
       </header>
@@ -328,6 +361,25 @@
             <article class="info-card"><span class="token">;</span><h3>文の終わり</h3><p>日本語の「。」のように、命令の区切りを示します。</p></article>
           </div>
           <div class="tip"><strong>今のC#は短く書ける</strong>古い教材では <code>class Program</code> や <code>static void Main</code> が登場します。.NET 6以降では「トップレベル ステートメント」により省略できます。</div>
+          <h3 class="mini-title"><span class="badge">SETUP</span>最初のプロジェクトを作る</h3>
+          <div class="code-card">
+            <div class="code-bar"><span>ターミナル</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code>dotnet new console -n HelloCSharp
+cd HelloCSharp
+dotnet run</code></pre>
+          </div>
+          <ul class="concept-list">
+            <li><code>.cs</code> はC#のソースファイル、<code>.csproj</code> はプロジェクトの設定ファイルです。</li>
+            <li><code>dotnet build</code> はコンパイル、<code>dotnet run</code> はコンパイルして実行します。</li>
+            <li>C#は大文字と小文字を区別します。<code>Console</code> と <code>console</code> は別の名前です。</li>
+          </ul>
+          <details class="deep-dive"><summary>従来の Main メソッドで書くと？</summary><div><p>トップレベル ステートメントを使わない場合、プログラムの入口は <code>static void Main()</code> です。既存の業務コードや古い教材を読むときに見かけます。</p><pre><code><span class="kw">class</span> <span class="type">Program</span>
+{
+    <span class="kw">static void</span> <span class="fn">Main</span>()
+    {
+        <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Hello"</span>);
+    }
+}</code></pre></div></details>
         </section>
 
         <section class="lesson" id="variables">
@@ -361,11 +413,53 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
             <article class="info-card"><span class="token">var score = 80;</span><h3>型推論</h3><p><code>var</code> を使うと右辺から型を自動判定します。型が消えるわけではなく、この例は <code>int</code> です。</p></article>
             <article class="info-card"><span class="token">const double Pi = 3.14;</span><h3>定数</h3><p><code>const</code> を付けた値は後から変更できません。変わらない設定値に使います。</p></article>
           </div>
+          <h3 class="mini-title">値型・参照型・スコープ</h3>
+          <div class="grid-3">
+            <article class="info-card"><span class="token">int / bool / struct</span><h3>値型</h3><p>変数が値そのものを持ちます。代入すると値がコピーされます。</p></article>
+            <article class="info-card"><span class="token">string / class / array</span><h3>参照型</h3><p>オブジェクトを指す参照を持ちます。複数の変数が同じ実体を参照できます。</p></article>
+            <article class="info-card"><span class="token">{ block }</span><h3>スコープ</h3><p>変数を使える範囲です。内側で宣言した変数は外側から使えません。</p></article>
+          </div>
+          <div class="rule-box"><strong>命名の基本</strong><p>ローカル変数と引数は <code>camelCase</code>、クラス・メソッド・プロパティは <code>PascalCase</code>。意味が伝わる英単語を使い、<code>x</code> のような短い名前は小さな範囲に限定します。</p></div>
+        </section>
+
+        <section class="lesson" id="strings">
+          <div class="section-head">
+            <div class="section-num">03</div>
+            <div><p class="section-kicker">Strings, input &amp; conversion</p><h2>文字列・入力・型変換</h2><p class="section-lead">ユーザー入力は文字列として受け取ります。文字列の加工と、安全な数値変換はコンソールアプリの基本です。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> input.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">Console</span>.<span class="fn">Write</span>(<span class="str">"名前を入力: "</span>);
+<span class="type">string</span>? name = <span class="type">Console</span>.<span class="fn">ReadLine</span>();
+
+<span class="type">Console</span>.<span class="fn">Write</span>(<span class="str">"年齢を入力: "</span>);
+<span class="type">string</span>? input = <span class="type">Console</span>.<span class="fn">ReadLine</span>();
+
+<span class="kw">if</span> (<span class="type">int</span>.<span class="fn">TryParse</span>(input, <span class="kw">out</span> <span class="type">int</span> age))
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{name}さんは来年{age + 1}歳"</span>);
+}
+<span class="kw">else</span>
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"年齢は整数で入力してください"</span>);
+}</code></pre>
+          </div>
+          <table class="type-table">
+            <thead><tr><th>書き方</th><th>用途</th><th>例</th></tr></thead>
+            <tbody>
+              <tr><td><code>$"...{value}..."</code></td><td>文字列補間</td><td>値を読みやすく埋め込む</td></tr>
+              <tr><td><code>@"C:\path"</code></td><td>逐語的文字列</td><td>バックスラッシュをそのまま扱う</td></tr>
+              <tr><td><code>"A" + "B"</code></td><td>文字列結合</td><td><code>"AB"</code></td></tr>
+              <tr><td><code>text.Length</code></td><td>文字数</td><td><code>"C#".Length</code> は2</td></tr>
+              <tr><td><code>Trim / Replace / Split</code></td><td>加工</td><td>空白除去・置換・分割</td></tr>
+            </tbody>
+          </table>
+          <div class="tip"><strong>入力には TryParse を優先</strong><code>int.Parse</code> は変換できない文字で例外になります。<code>TryParse</code> なら成否を <code>bool</code> で受け取れるため、安全に分岐できます。</div>
         </section>
 
         <section class="lesson" id="operators">
           <div class="section-head">
-            <div class="section-num">03</div>
+            <div class="section-num">04</div>
             <div><p class="section-kicker">Operators</p><h2>演算子</h2><p class="section-lead">値を計算したり、比べたり、条件を組み合わせたりするための記号です。</p></div>
           </div>
           <div class="grid-3">
@@ -388,7 +482,7 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 
         <section class="lesson" id="conditions">
           <div class="section-head">
-            <div class="section-num">04</div>
+            <div class="section-num">05</div>
             <div><p class="section-kicker">Conditions</p><h2>条件分岐</h2><p class="section-lead">条件によって実行する処理を切り替えます。「もし〜なら」をコードにしたものです。</p></div>
           </div>
           <div class="flow"><div class="flow-box">条件を調べる</div><div class="flow-arrow">→</div><div class="flow-box">true：if を実行</div><div class="flow-arrow">／</div><div class="flow-box">false：else を実行</div></div>
@@ -410,11 +504,23 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 }</code></pre>
           </div>
           <div class="definition"><strong>ブロック</strong>波括弧 <code>{ }</code> で囲んだ処理のまとまり。インデント（字下げ）をそろえると構造が読みやすくなります。</div>
+          <h3 class="mini-title"><span class="badge">SWITCH</span>値に応じて分岐する</h3>
+          <div class="code-card">
+            <div class="code-bar"><span>switch式</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">string</span> rank = score <span class="kw">switch</span>
+{
+    &gt;= <span class="num">90</span> =&gt; <span class="str">"A"</span>,
+    &gt;= <span class="num">80</span> =&gt; <span class="str">"B"</span>,
+    &gt;= <span class="num">60</span> =&gt; <span class="str">"C"</span>,
+    _     =&gt; <span class="str">"D"</span>   <span class="cm">// _ はその他すべて</span>
+};</code></pre>
+          </div>
+          <ul class="concept-list"><li>単純な二択は三項演算子 <code>条件 ? trueの値 : falseの値</code> でも書けます。</li><li><code>&amp;&amp;</code> と <code>||</code> は左から評価し、結果が確定した時点で残りを評価しない「短絡評価」を行います。</li></ul>
         </section>
 
         <section class="lesson" id="loops">
           <div class="section-head">
-            <div class="section-num">05</div>
+            <div class="section-num">06</div>
             <div><p class="section-kicker">Loops</p><h2>繰り返し</h2><p class="section-lead">同じ処理を何度も行うときはループを使います。回数が決まっているなら <code>for</code>、集合を順に読むなら <code>foreach</code> が便利です。</p></div>
           </div>
           <div class="grid-2">
@@ -436,11 +542,22 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
             </div>
           </div>
           <div class="definition"><strong>while ループ</strong>条件が <code>true</code> の間だけ繰り返します。条件が永遠に <code>true</code> だと無限ループになるため注意しましょう。</div>
+          <div class="code-card">
+            <div class="code-bar"><span>while・break・continue</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">int</span> number = <span class="num">0</span>;
+<span class="kw">while</span> (number &lt; <span class="num">10</span>)
+{
+    number++;
+    <span class="kw">if</span> (number % <span class="num">2</span> != <span class="num">0</span>) <span class="kw">continue</span>; <span class="cm">// 奇数は飛ばす</span>
+    <span class="kw">if</span> (number &gt; <span class="num">6</span>) <span class="kw">break</span>;       <span class="cm">// ループを終了</span>
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(number);     <span class="cm">// 2, 4, 6</span>
+}</code></pre>
+          </div>
         </section>
 
         <section class="lesson" id="methods">
           <div class="section-head">
-            <div class="section-num">06</div>
+            <div class="section-num">07</div>
             <div><p class="section-kicker">Methods</p><h2>メソッド</h2><p class="section-lead">処理に名前を付けて再利用できるようにしたものです。「入力を受け取り、処理し、結果を返す」小さな部品として考えます。</p></div>
           </div>
           <div class="syntax-line"><span class="syntax-type">戻り値の型</span><span class="syntax-name">メソッド名</span> ( 引数 ) { 処理 };</div>
@@ -460,11 +577,25 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
             <article class="info-card"><span class="token">a, b</span><h3>引数</h3><p>メソッドが受け取る値。複数ならカンマで区切ります。</p></article>
             <article class="info-card"><span class="token">return</span><h3>戻り値</h3><p>呼び出し元へ結果を返し、メソッドを終了します。</p></article>
           </div>
+          <h3 class="mini-title">実務でよく使う引数の機能</h3>
+          <div class="code-card">
+            <div class="code-bar"><span>省略可能・名前付き・オーバーロード</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">string</span> <span class="fn">Greet</span>(<span class="type">string</span> name, <span class="type">string</span> suffix = <span class="str">"さん"</span>)
+    =&gt; <span class="str">$"こんにちは、{name}{suffix}"</span>;
+
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">Greet</span>(<span class="str">"佐藤"</span>));
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">Greet</span>(suffix: <span class="str">"先生"</span>, name: <span class="str">"鈴木"</span>));
+
+<span class="cm">// 同名でも引数の型や数が違えば定義できる</span>
+<span class="type">int</span> <span class="fn">Square</span>(<span class="type">int</span> x) =&gt; x * x;
+<span class="type">double</span> <span class="fn">Square</span>(<span class="type">double</span> x) =&gt; x * x;</code></pre>
+          </div>
+          <ul class="concept-list"><li><code>ref</code> は呼び出し元の変数を直接変更、<code>out</code> は複数の結果を返す用途に使えます。</li><li>1行で結果を返すメソッドは <code>=&gt;</code> を使った「式形式」で短く書けます。</li><li>メソッドは1つの役割に絞り、名前だけで何をするか分かるようにします。</li></ul>
         </section>
 
         <section class="lesson" id="collections">
           <div class="section-head">
-            <div class="section-num">07</div>
+            <div class="section-num">08</div>
             <div><p class="section-kicker">Arrays &amp; lists</p><h2>配列とリスト</h2><p class="section-lead">複数の値をまとめて扱うための入れ物です。要素の位置を表すインデックスは <strong>0から</strong> 始まります。</p></div>
           </div>
           <div class="grid-2">
@@ -482,36 +613,119 @@ age = <span class="num">21</span>;                 <span class="cm">// 値を更
 tasks.<span class="fn">Add</span>(<span class="str">"ミニアプリを作る"</span>);
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(tasks.Count); <span class="cm">// 3</span></code></pre>
           </div>
+          <table class="type-table">
+            <thead><tr><th>操作</th><th>配列</th><th>List&lt;T&gt;</th></tr></thead>
+            <tbody><tr><td>要素数</td><td><code>Length</code></td><td><code>Count</code></td></tr><tr><td>追加・削除</td><td>不可</td><td><code>Add / Remove</code></td></tr><tr><td>存在確認</td><td><code>Array.Exists</code></td><td><code>Contains</code></td></tr><tr><td>並べ替え</td><td><code>Array.Sort</code></td><td><code>Sort</code></td></tr></tbody>
+          </table>
+          <div class="tip"><strong>範囲外アクセスに注意</strong>要素数3のインデックスは <code>0, 1, 2</code> です。<code>items[3]</code> は <code>IndexOutOfRangeException</code> になります。</div>
+        </section>
+
+        <section class="lesson" id="keyed-collections">
+          <div class="section-head">
+            <div class="section-num">09</div>
+            <div><p class="section-kicker">Dictionary, set &amp; tuple</p><h2>辞書・集合・タプル</h2><p class="section-lead">データの探し方に合わせてコレクションを選びます。キー検索、重複排除、複数値の一時的な組み合わせを押さえましょう。</p></div>
+          </div>
+          <div class="grid-3">
+            <article class="info-card"><span class="token">Dictionary&lt;K,V&gt;</span><h3>辞書</h3><p>一意なキーと値を組にして、高速に検索します。</p></article>
+            <article class="info-card"><span class="token">HashSet&lt;T&gt;</span><h3>集合</h3><p>重複しない値を管理し、存在確認や集合演算に使います。</p></article>
+            <article class="info-card"><span class="token">(string, int)</span><h3>タプル</h3><p>小さな複数の値を、一時的にひとまとめにします。</p></article>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> keyed-collections.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">Dictionary&lt;string, int&gt;</span> stock = <span class="kw">new</span>()
+{
+    [<span class="str">"apple"</span>] = <span class="num">5</span>,
+    [<span class="str">"orange"</span>] = <span class="num">3</span>
+};
+
+<span class="kw">if</span> (stock.<span class="fn">TryGetValue</span>(<span class="str">"apple"</span>, <span class="kw">out</span> <span class="type">int</span> count))
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(count);
+
+<span class="type">HashSet&lt;string&gt;</span> tags = <span class="kw">new</span>() { <span class="str">"C#"</span>, <span class="str">"Web"</span>, <span class="str">"C#"</span> };
+(<span class="type">string</span> Name, <span class="type">int</span> Score) result = (<span class="str">"Aoi"</span>, <span class="num">92</span>);</code></pre>
+          </div>
+          <div class="rule-box"><strong>選択の目安</strong><p>順番で扱うなら <code>List</code>、名前で探すなら <code>Dictionary</code>、重複をなくすなら <code>HashSet</code>。目的から逆算して選びます。</p></div>
         </section>
 
         <section class="lesson" id="classes">
           <div class="section-head">
-            <div class="section-num">08</div>
+            <div class="section-num">10</div>
             <div><p class="section-kicker">Classes &amp; objects</p><h2>クラスとオブジェクト</h2><p class="section-lead">クラスはデータと処理をまとめた「設計図」。その設計図から作られた実体がオブジェクト（インスタンス）です。</p></div>
           </div>
           <div class="flow"><div class="flow-box"><b>クラス</b><br>Cat の設計図</div><div class="flow-arrow">→ new</div><div class="flow-box"><b>オブジェクト</b><br>mugi という猫</div><div class="flow-arrow">＋</div><div class="flow-box"><b>オブジェクト</b><br>sora という猫</div></div>
           <div class="code-card">
             <div class="code-bar"><span><span class="code-dots">● ● ●</span> class.cs</span><button class="copy-btn" type="button">COPY</button></div>
-            <pre><code><span class="kw">class</span> <span class="type">Cat</span>
+            <pre><code><span class="cm">// トップレベルの実行文は型定義より前に書く</span>
+<span class="type">Cat</span> mugi = <span class="kw">new</span>(<span class="str">"ムギ"</span>);
+mugi.<span class="fn">Meow</span>();
+
+<span class="kw">class</span> <span class="type">Cat</span>
 {
-    <span class="kw">public</span> <span class="type">string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="str">""</span>;
+    <span class="kw">public</span> <span class="type">string</span> Name { <span class="kw">get</span>; <span class="kw">private set</span>; }
+
+    <span class="cm">// new Cat("ムギ") のときに呼ばれるコンストラクター</span>
+    <span class="kw">public</span> <span class="fn">Cat</span>(<span class="type">string</span> name) =&gt; Name = name;
 
     <span class="kw">public void</span> <span class="fn">Meow</span>()
-    {
-        <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{Name}: ニャー！"</span>);
-    }
-}
-
-<span class="type">Cat</span> mugi = <span class="kw">new</span> <span class="type">Cat</span>();
-mugi.Name = <span class="str">"ムギ"</span>;
-mugi.<span class="fn">Meow</span>();</code></pre>
+        =&gt; <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{Name}: ニャー！"</span>);
+}</code></pre>
           </div>
           <div class="definition"><strong>プロパティ</strong>オブジェクトが持つデータを表します。<code>get</code> は読み取り、<code>set</code> は書き込みを許可します。</div>
+          <table class="type-table">
+            <thead><tr><th>アクセス修飾子</th><th>見える範囲</th></tr></thead>
+            <tbody><tr><td><code>public</code></td><td>どこからでもアクセス可能</td></tr><tr><td><code>private</code></td><td>同じクラスの中だけ</td></tr><tr><td><code>protected</code></td><td>同じクラスと派生クラス</td></tr><tr><td><code>internal</code></td><td>同じプロジェクト（アセンブリ）内</td></tr></tbody>
+          </table>
+          <div class="grid-2"><article class="info-card"><span class="token">static</span><h3>クラスに1つ</h3><p>インスタンスではなく型そのものに属します。<code>Math.Max</code> などが例です。</p></article><article class="info-card"><span class="token">record</span><h3>値を表す型</h3><p>主にデータを保持し、内容による等価比較をしたい場合に便利です。</p></article></div>
+        </section>
+
+        <section class="lesson" id="oop">
+          <div class="section-head">
+            <div class="section-num">11</div>
+            <div><p class="section-kicker">Object-oriented programming</p><h2>継承とインターフェイス</h2><p class="section-lead">異なるクラスを共通の型として扱う仕組みがポリモーフィズムです。インターフェイスは「できること」の契約を表します。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>interface とポリモーフィズム</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">INotifier</span> notifier = <span class="kw">new</span> <span class="type">EmailNotifier</span>();
+notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しました"</span>);
+
+<span class="kw">interface</span> <span class="type">INotifier</span>
+{
+    <span class="kw">void</span> <span class="fn">Send</span>(<span class="type">string</span> message);
+}
+
+<span class="kw">class</span> <span class="type">EmailNotifier</span> : <span class="type">INotifier</span>
+{
+    <span class="kw">public void</span> <span class="fn">Send</span>(<span class="type">string</span> message)
+        =&gt; <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"Email: {message}"</span>);
+}</code></pre>
+          </div>
+          <ul class="concept-list"><li><strong>カプセル化：</strong>内部の状態を隠し、公開メソッド経由で安全に操作します。</li><li><strong>継承：</strong><code>Dog : Animal</code> のように既存クラスを拡張します。<code>virtual / override</code> で動作を差し替えられます。</li><li><strong>インターフェイス：</strong>実装を持たない共通契約を定義し、差し替えやテストを容易にします。</li></ul>
+          <div class="tip"><strong>継承よりコンポジションも検討</strong>「〜である（is-a）」が明確なら継承、「〜を持つ（has-a）」なら別オブジェクトを組み合わせる設計が自然です。</div>
+        </section>
+
+        <section class="lesson" id="nullable">
+          <div class="section-head">
+            <div class="section-num">12</div>
+            <div><p class="section-kicker">Nullability</p><h2>nullとnullable</h2><p class="section-lead"><code>null</code> は「参照先がない」状態です。C#のnullable参照型は、nullの可能性をコンパイル時に知らせてくれます。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>nullを安全に扱う</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">string</span>? nickname = <span class="type">Console</span>.<span class="fn">ReadLine</span>();
+
+<span class="type">int</span> length = nickname?.Length ?? <span class="num">0</span>;
+<span class="type">string</span> displayName = nickname ?? <span class="str">"ゲスト"</span>;
+
+<span class="type">int</span>? optionalScore = <span class="kw">null</span>; <span class="cm">// nullable値型</span>
+<span class="kw">if</span> (optionalScore <span class="kw">is</span> <span class="type">int</span> score)
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(score);</code></pre>
+          </div>
+          <table class="type-table"><thead><tr><th>記号</th><th>意味</th></tr></thead><tbody><tr><td><code>T?</code></td><td>nullを許可する型</td></tr><tr><td><code>?.</code></td><td>nullなら処理を止めてnullを返す</td></tr><tr><td><code>??</code></td><td>nullのとき代わりの値を使う</td></tr><tr><td><code>!</code></td><td>「nullではない」とコンパイラへ伝える。乱用は避ける</td></tr></tbody></table>
+          <div class="rule-box"><strong>基本方針</strong><p>可能ならnullを作らない設計にし、必要な場所だけ <code>?</code> を付けます。警告を <code>!</code> で消す前に、nullになる経路を確認しましょう。</p></div>
         </section>
 
         <section class="lesson" id="exceptions">
           <div class="section-head">
-            <div class="section-num">09</div>
+            <div class="section-num">13</div>
             <div><p class="section-kicker">Exceptions</p><h2>例外処理</h2><p class="section-lead">実行中に起こる想定外の問題を「例外」と呼びます。<code>try-catch</code> で安全に受け止められます。</p></div>
           </div>
           <div class="code-card">
@@ -526,6 +740,120 @@ mugi.<span class="fn">Meow</span>();</code></pre>
 }</code></pre>
           </div>
           <div class="tip"><strong>まずはエラー文を読む</strong>エラーは「失敗」ではなく、直す場所を教えるヒントです。例外の種類・メッセージ・行番号の3つを確認しましょう。</div>
+          <ul class="concept-list"><li><code>catch (Exception ex)</code> で情報を受け取り、<code>ex.Message</code> やスタックトレースを記録できます。</li><li><code>finally</code> は成功・失敗にかかわらず実行され、後始末に使います。</li><li><code>throw new ArgumentException(...)</code> で不正な状態を呼び出し元へ通知できます。</li><li>入力ミスのように予想できる失敗は、例外より <code>TryParse</code> などで扱います。</li></ul>
+        </section>
+
+        <section class="lesson" id="linq">
+          <div class="section-head">
+            <div class="section-num">14</div>
+            <div><p class="section-kicker">Language integrated query</p><h2>LINQでデータを操作する</h2><p class="section-lead">LINQはコレクションの絞り込み、変換、並べ替え、集計を統一した書き方で行う機能です。元のコレクションを変更せず、新しい結果を作る操作が中心です。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>メソッド構文のLINQ</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">List&lt;int&gt;</span> scores = <span class="kw">new</span>() { <span class="num">72</span>, <span class="num">95</span>, <span class="num">81</span>, <span class="num">58</span> };
+
+<span class="type">List&lt;string&gt;</span> labels = scores
+    .<span class="fn">Where</span>(score =&gt; score &gt;= <span class="num">80</span>)
+    .<span class="fn">OrderByDescending</span>(score =&gt; score)
+    .<span class="fn">Select</span>(score =&gt; <span class="str">$"{score}点"</span>)
+    .<span class="fn">ToList</span>();
+
+<span class="type">double</span> average = scores.<span class="fn">Average</span>();
+<span class="type">int</span> first = scores.<span class="fn">FirstOrDefault</span>(score =&gt; score &gt;= <span class="num">90</span>);</code></pre>
+          </div>
+          <table class="type-table"><thead><tr><th>メソッド</th><th>役割</th></tr></thead><tbody><tr><td><code>Where</code></td><td>条件に合う要素を絞り込む</td></tr><tr><td><code>Select</code></td><td>各要素を別の形へ変換する</td></tr><tr><td><code>OrderBy</code></td><td>並べ替える</td></tr><tr><td><code>Any / All</code></td><td>存在・全件の条件を調べる</td></tr><tr><td><code>Count / Sum / Average</code></td><td>件数・合計・平均を集計する</td></tr><tr><td><code>FirstOrDefault</code></td><td>最初の要素、なければ既定値を返す</td></tr></tbody></table>
+          <div class="tip"><strong>遅延実行</strong>多くのLINQ操作は、<code>foreach</code> や <code>ToList()</code> で列挙されるまで実行されません。結果をその時点で固定したいなら <code>ToList()</code> を使います。</div>
+        </section>
+
+        <section class="lesson" id="generics">
+          <div class="section-head">
+            <div class="section-num">15</div>
+            <div><p class="section-kicker">Generics</p><h2>ジェネリック</h2><p class="section-lead">型を後から指定できる部品を作る仕組みです。型安全性を保ったまま、同じロジックをさまざまな型で再利用できます。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>ジェネリックメソッドと型制約</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">T</span> <span class="fn">Last&lt;T&gt;</span>(<span class="type">IReadOnlyList&lt;T&gt;</span> items)
+{
+    <span class="kw">if</span> (items.Count == <span class="num">0</span>)
+        <span class="kw">throw new</span> <span class="type">ArgumentException</span>(<span class="str">"要素が必要です"</span>);
+
+    <span class="kw">return</span> items[^<span class="num">1</span>]; <span class="cm">// ^1 は末尾</span>
+}
+
+<span class="type">string</span> lastName = <span class="fn">Last</span>(<span class="kw">new</span>[] { <span class="str">"Aoi"</span>, <span class="str">"Sora"</span> });
+
+<span class="kw">class</span> <span class="type">Repository&lt;T&gt;</span> <span class="kw">where</span> T : <span class="kw">class</span>
+{
+    <span class="kw">private readonly</span> <span class="type">List&lt;T&gt;</span> items = <span class="kw">new</span>();
+    <span class="kw">public void</span> <span class="fn">Add</span>(<span class="type">T</span> item) =&gt; items.<span class="fn">Add</span>(item);
+}</code></pre>
+          </div>
+          <ul class="concept-list"><li><code>&lt;T&gt;</code> のTは型パラメーター。呼び出し時に <code>int</code> や <code>string</code> などへ決まります。</li><li><code>where T : class</code> のような型制約で、使える型や操作を限定できます。</li><li><code>List&lt;T&gt;</code>、<code>Dictionary&lt;TKey,TValue&gt;</code>、<code>Task&lt;T&gt;</code> もジェネリック型です。</li></ul>
+        </section>
+
+        <section class="lesson" id="delegates">
+          <div class="section-head">
+            <div class="section-num">16</div>
+            <div><p class="section-kicker">Lambda, delegate &amp; event</p><h2>ラムダ式・デリゲート・イベント</h2><p class="section-lead">処理そのものを値として渡す仕組みです。LINQの条件、ボタンのクリック、処理完了通知などに使われます。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>処理を変数や引数にする</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">Func&lt;int, int, int&gt;</span> add = (a, b) =&gt; a + b;
+<span class="type">Action&lt;string&gt;</span> log = message =&gt; <span class="type">Console</span>.<span class="fn">WriteLine</span>(message);
+<span class="type">Predicate&lt;int&gt;</span> isEven = number =&gt; number % <span class="num">2</span> == <span class="num">0</span>;
+
+log(<span class="str">$"答え: {add(2, 3)}"</span>);
+
+<span class="kw">class</span> <span class="type">Downloader</span>
+{
+    <span class="kw">public event</span> <span class="type">Action</span>? Completed;
+    <span class="kw">public void</span> <span class="fn">Finish</span>() =&gt; Completed?.<span class="fn">Invoke</span>();
+}</code></pre>
+          </div>
+          <div class="grid-3"><article class="info-card"><span class="token">Func&lt;...&gt;</span><h3>値を返す処理</h3><p>最後の型引数が戻り値です。</p></article><article class="info-card"><span class="token">Action&lt;...&gt;</span><h3>値を返さない処理</h3><p><code>void</code> 相当の処理を表します。</p></article><article class="info-card"><span class="token">event</span><h3>発生を通知</h3><p>発行側と購読側を疎結合にします。</p></article></div>
+        </section>
+
+        <section class="lesson" id="async">
+          <div class="section-head">
+            <div class="section-num">17</div>
+            <div><p class="section-kicker">Asynchronous programming</p><h2>async / await</h2><p class="section-lead">通信やファイル読み書きの待ち時間に、スレッドを塞がないための仕組みです。処理が速くなるのではなく、待機中も他の仕事を進められるようにします。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>非同期メソッド</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="kw">await</span> <span class="fn">ShowMessageAsync</span>();
+
+<span class="kw">async</span> <span class="type">Task</span> <span class="fn">ShowMessageAsync</span>()
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"待機開始"</span>);
+    <span class="kw">await</span> <span class="type">Task</span>.<span class="fn">Delay</span>(<span class="num">1000</span>);
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"完了"</span>);
+}
+
+<span class="kw">async</span> <span class="type">Task&lt;string&gt;</span> <span class="fn">DownloadAsync</span>(<span class="type">HttpClient</span> client)
+    =&gt; <span class="kw">await</span> client.<span class="fn">GetStringAsync</span>(<span class="str">"https://example.com"</span>);</code></pre>
+          </div>
+          <ul class="concept-list"><li>戻り値なしは <code>Task</code>、結果ありは <code>Task&lt;T&gt;</code>。<code>async void</code> は原則イベントハンドラーだけにします。</li><li><code>await</code> できる処理は、呼び出し側も通常 <code>async</code> へ伝播します。</li><li><code>.Result</code> や <code>.Wait()</code> は停止やデッドロックの原因になるため、<code>await</code> を優先します。</li><li>長時間処理は <code>CancellationToken</code> を受け取り、キャンセル可能にします。</li></ul>
+        </section>
+
+        <section class="lesson" id="files">
+          <div class="section-head">
+            <div class="section-num">18</div>
+            <div><p class="section-kicker">Files &amp; project structure</p><h2>ファイル操作とプロジェクト構成</h2><p class="section-lead">最後に、データを保存する方法と、コードが増えたときの整理方法を確認します。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span>安全なパス結合と非同期ファイル操作</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">string</span> path = <span class="type">Path</span>.<span class="fn">Combine</span>(<span class="type">Environment</span>.CurrentDirectory, <span class="str">"data.txt"</span>);
+
+<span class="kw">await</span> <span class="type">File</span>.<span class="fn">WriteAllTextAsync</span>(path, <span class="str">"C#を学習中"</span>);
+<span class="type">string</span> content = <span class="kw">await</span> <span class="type">File</span>.<span class="fn">ReadAllTextAsync</span>(path);
+
+<span class="kw">if</span> (<span class="type">File</span>.<span class="fn">Exists</span>(path))
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(content);</code></pre>
+          </div>
+          <table class="type-table"><thead><tr><th>要素</th><th>役割</th></tr></thead><tbody><tr><td><code>namespace</code></td><td>型名の衝突を避け、機能ごとに整理する</td></tr><tr><td><code>.csproj</code></td><td>対象.NET、依存パッケージ、ビルド設定を管理する</td></tr><tr><td><code>dotnet add package</code></td><td>NuGetパッケージを追加する</td></tr><tr><td><code>dotnet test</code></td><td>テストプロジェクトの自動テストを実行する</td></tr><tr><td><code>using</code></td><td>名前空間を短い名前で参照する</td></tr></tbody></table>
+          <h3 class="mini-title">次に作ると理解が深まる3つの課題</h3>
+          <div class="grid-3"><article class="info-card"><span class="token">LEVEL 1</span><h3>家計簿</h3><p>入力、型変換、List、合計計算、ファイル保存を組み合わせる。</p></article><article class="info-card"><span class="token">LEVEL 2</span><h3>タスク管理</h3><p>クラス、Dictionary、LINQ、例外処理で検索や状態更新を作る。</p></article><article class="info-card"><span class="token">LEVEL 3</span><h3>APIクライアント</h3><p>async/await、HttpClient、JSON変換、テストに挑戦する。</p></article></div>
+          <div class="rule-box"><strong>学習のコツ</strong><p>読むだけで終わらず、コード例の値を変える → 結果を予想する → 実行する → エラーを読む、の順で手を動かしましょう。</p></div>
         </section>
 
         <section class="cheatsheet" id="cheatsheet">
@@ -540,6 +868,10 @@ mugi.<span class="fn">Meow</span>();</code></pre>
             <div class="cheat-row"><code>new</code><span>オブジェクトを作る</span></div>
             <div class="cheat-row"><code>$"{name}"</code><span>文字列へ値を埋め込む</span></div>
             <div class="cheat-row"><code>null</code><span>値が存在しない状態</span></div>
+            <div class="cheat-row"><code>?. / ??</code><span>nullを安全に扱う</span></div>
+            <div class="cheat-row"><code>Where / Select</code><span>LINQで絞り込み・変換</span></div>
+            <div class="cheat-row"><code>async / await</code><span>待ち時間のある処理</span></div>
+            <div class="cheat-row"><code>try / catch</code><span>例外を処理する</span></div>
           </div>
         </section>
       </div>

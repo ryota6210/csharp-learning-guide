@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="C#の基本文法を、豊富なコード例で学べる初心者向けガイド">
+  <title>C# はじめの一歩 — 基本文法ガイド</title>
+  <style>
+    :root {
+      --ink: #14213d;
+      --ink-soft: #40516f;
+      --paper: #f7f3e8;
+      --surface: #fffdf7;
+      --line: #d8d2c2;
+      --blue: #167d9a;
+      --blue-light: #dff4f5;
+      --coral: #ed6a5a;
+      --yellow: #f5c542;
+      --green: #2f855a;
+      --code: #101a2c;
+      --code-text: #e6edf7;
+      --shadow: 6px 6px 0 rgba(20, 33, 61, .12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(245,197,66,.2), transparent 19rem),
+        radial-gradient(circle at 88% 18%, rgba(22,125,154,.12), transparent 22rem),
+        var(--paper);
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.8;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+    code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+    :focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+    .layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); min-height: 100vh; }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      color: #fff;
+      background: var(--ink);
+      border-right: 1px solid rgba(255,255,255,.12);
+      overflow-y: auto;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      aspect-ratio: 1;
+      color: var(--ink);
+      background: var(--yellow);
+      border: 2px solid #fff;
+      border-radius: 12px;
+      font: 800 21px/1 Consolas, monospace;
+      transform: rotate(-3deg);
+    }
+    .brand strong { display: block; font-size: 15px; letter-spacing: .08em; }
+    .brand small { color: #a8bbd9; font-size: 11px; }
+
+    .nav-label { margin: 0 0 10px 11px; color: #8fa3c3; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+    .lesson-nav { display: grid; gap: 5px; }
+    .lesson-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 11px;
+      color: #dbe5f3;
+      border-radius: 9px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .lesson-nav a:hover, .lesson-nav a.active { color: #fff; background: rgba(255,255,255,.11); transform: translateX(2px); }
+    .nav-num { color: var(--yellow); font: 700 11px/1 Consolas, monospace; }
+    .sidebar-note {
+      margin-top: 28px;
+      padding: 14px;
+      color: #c9d6e8;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    main { min-width: 0; }
+    .hero { position: relative; padding: 70px clamp(24px, 7vw, 100px) 62px; overflow: hidden; }
+    .hero::after {
+      content: "{ }";
+      position: absolute;
+      top: -36px;
+      right: 5%;
+      color: rgba(20,33,61,.055);
+      font: 900 clamp(150px, 25vw, 340px)/1 Consolas, monospace;
+      transform: rotate(8deg);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 5px 11px;
+      color: var(--blue);
+      background: var(--blue-light);
+      border: 1px solid #a7dadd;
+      border-radius: 99px;
+      font: 700 12px/1.5 Consolas, monospace;
+      letter-spacing: .04em;
+    }
+    .eyebrow::before { content: "●"; color: var(--coral); font-size: 9px; }
+    h1 { position: relative; z-index: 1; margin: 0; max-width: 850px; font-size: clamp(42px, 7vw, 88px); line-height: 1.04; letter-spacing: -.055em; }
+    h1 span { color: var(--blue); }
+    .hero-lead { position: relative; z-index: 1; max-width: 680px; margin: 24px 0 0; color: var(--ink-soft); font-size: clamp(16px, 2vw, 20px); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .meta-chip { padding: 7px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font-size: 12px; box-shadow: 2px 2px 0 rgba(20,33,61,.08); }
+    .meta-chip b { color: var(--coral); }
+
+    .content { width: min(1080px, calc(100% - 48px)); margin: 0 auto 100px; }
+
+    .start-card {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 28px;
+      padding: clamp(24px, 5vw, 44px);
+      background: var(--ink);
+      color: #fff;
+      border-radius: 24px;
+      box-shadow: 9px 9px 0 var(--yellow);
+    }
+    .start-card h2 { margin: 0 0 12px; font-size: clamp(24px, 4vw, 38px); line-height: 1.25; }
+    .start-card p { margin: 0; color: #cdd9e9; }
+    .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-self: center; }
+    .road-step { padding: 14px 8px; color: var(--ink); background: var(--yellow); border-radius: 10px; text-align: center; font-size: 11px; font-weight: 800; }
+    .road-step:nth-child(2) { background: #7dd3d8; }
+    .road-step:nth-child(3) { background: #f29d91; }
+    .road-step span { display: block; font: 800 18px/1.2 Consolas, monospace; }
+
+    .lesson { padding-top: 90px; }
+    .section-head { display: grid; grid-template-columns: 74px 1fr; gap: 18px; align-items: start; margin-bottom: 28px; }
+    .section-num {
+      display: grid;
+      place-items: center;
+      height: 58px;
+      color: #fff;
+      background: var(--coral);
+      border: 2px solid var(--ink);
+      border-radius: 15px;
+      box-shadow: 4px 4px 0 var(--ink);
+      font: 800 18px/1 Consolas, monospace;
+    }
+    .section-kicker { margin: 0 0 2px; color: var(--blue); font: 800 11px/1.4 Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(27px, 4vw, 42px); line-height: 1.25; letter-spacing: -.03em; }
+    .section-lead { max-width: 720px; margin: 10px 0 0; color: var(--ink-soft); }
+
+    .definition {
+      margin: 22px 0;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--blue);
+      border-radius: 4px 12px 12px 4px;
+    }
+    .definition strong { display: inline-block; margin-right: 8px; color: var(--blue); }
+
+    .code-card { margin: 24px 0; background: var(--code); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .code-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; color: #9eb0cb; border-bottom: 1px solid #293754; font: 12px/1.5 Consolas, monospace; }
+    .code-dots { letter-spacing: 4px; color: var(--coral); }
+    .copy-btn { padding: 5px 9px; color: #cbd8ea; background: transparent; border: 1px solid #42516d; border-radius: 7px; cursor: pointer; font-size: 11px; }
+    .copy-btn:hover { color: #fff; border-color: #7e91b0; }
+    pre { margin: 0; padding: 22px; color: var(--code-text); overflow-x: auto; font-size: 13px; line-height: 1.75; tab-size: 4; }
+    .kw { color: #ff83a8; }
+    .type { color: #69d1da; }
+    .str { color: #f3c969; }
+    .num { color: #b9e379; }
+    .cm { color: #7789a6; }
+    .fn { color: #91b9ff; }
+
+    .grid-2, .grid-3 { display: grid; gap: 16px; margin: 24px 0; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .info-card { padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+    .info-card h3 { margin: 0 0 7px; font-size: 16px; }
+    .info-card p { margin: 0; color: var(--ink-soft); font-size: 13px; }
+    .token { display: inline-block; margin-bottom: 10px; padding: 3px 7px; color: var(--coral); background: #fff0ed; border-radius: 5px; font: 700 12px/1.5 Consolas, monospace; }
+
+    .type-table { width: 100%; margin: 24px 0; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .type-table th, .type-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; font-size: 13px; }
+    .type-table th { color: var(--ink); background: #ede8da; font-size: 11px; letter-spacing: .08em; }
+    .type-table tr:last-child td { border-bottom: 0; }
+    .type-table code { color: var(--blue); font-weight: 800; }
+
+    .tip { position: relative; margin: 24px 0; padding: 18px 20px 18px 56px; background: #fff6d8; border: 1px solid #e7cf78; border-radius: 13px; font-size: 13px; }
+    .tip::before { content: "!"; position: absolute; left: 18px; top: 17px; display: grid; place-items: center; width: 25px; height: 25px; color: var(--ink); background: var(--yellow); border: 2px solid var(--ink); border-radius: 50%; font: 900 14px/1 Consolas, monospace; }
+    .tip strong { display: block; margin-bottom: 2px; }
+
+    .syntax-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0; padding: 18px; color: #fff; background: var(--ink); border-radius: 13px; font: 700 13px/1.6 Consolas, monospace; }
+    .syntax-line span { padding: 4px 8px; border-radius: 5px; }
+    .syntax-type { background: var(--blue); }
+    .syntax-name { background: #6750a4; }
+    .syntax-value { color: var(--ink); background: var(--yellow); }
+    .syntax-note { color: #99aac4; font-family: inherit; font-weight: 400; }
+
+    .flow { display: flex; align-items: stretch; gap: 8px; margin: 22px 0; }
+    .flow-box { flex: 1; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; text-align: center; font-size: 12px; }
+    .flow-arrow { align-self: center; color: var(--coral); font-weight: 900; }
+
+    .cheatsheet { margin-top: 90px; }
+    .cheat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+    .cheat-row { display: grid; grid-template-columns: 125px 1fr; gap: 12px; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; font-size: 12px; }
+    .cheat-row code { color: var(--blue); font-weight: 800; }
+
+    footer { margin-top: 90px; padding: 32px; color: #c9d6e8; background: var(--ink); text-align: center; font-size: 12px; }
+    footer strong { color: var(--yellow); }
+
+    .mobile-head { display: none; }
+
+    @media (max-width: 860px) {
+      .layout { display: block; }
+      .sidebar { display: none; }
+      .mobile-head { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; color: #fff; background: rgba(20,33,61,.96); backdrop-filter: blur(8px); }
+      .mobile-head strong { font: 800 14px/1 Consolas, monospace; }
+      .mobile-head a { color: var(--yellow); font-size: 12px; text-decoration: none; }
+      .hero { padding-top: 52px; }
+      .start-card { grid-template-columns: 1fr; }
+      .roadmap { max-width: 420px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .cheat-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .content { width: min(100% - 28px, 1080px); }
+      .hero { padding-inline: 18px; }
+      .hero::after { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .section-head { grid-template-columns: 54px 1fr; gap: 13px; }
+      .section-num { height: 48px; font-size: 15px; }
+      .roadmap { grid-template-columns: 1fr; }
+      .flow { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); }
+      pre { padding: 18px 14px; font-size: 12px; }
+      .type-table { display: block; overflow-x: auto; white-space: nowrap; }
+      .cheat-row { grid-template-columns: 105px 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" aria-label="レッスン一覧">
+      <div class="brand">
+        <div class="brand-mark">C#</div>
+        <div><strong>ZERO TO C#</strong><small>基本文法ガイド</small></div>
+      </div>
+      <p class="nav-label">LESSONS</p>
+      <nav class="lesson-nav">
+        <a href="#structure"><span class="nav-num">01</span>プログラムの構造</a>
+        <a href="#variables"><span class="nav-num">02</span>変数とデータ型</a>
+        <a href="#operators"><span class="nav-num">03</span>演算子</a>
+        <a href="#conditions"><span class="nav-num">04</span>条件分岐</a>
+        <a href="#loops"><span class="nav-num">05</span>繰り返し</a>
+        <a href="#methods"><span class="nav-num">06</span>メソッド</a>
+        <a href="#collections"><span class="nav-num">07</span>配列とリスト</a>
+        <a href="#classes"><span class="nav-num">08</span>クラスとオブジェクト</a>
+        <a href="#exceptions"><span class="nav-num">09</span>例外処理</a>
+      </nav>
+      <div class="sidebar-note">上から順番に読むと、コンソールアプリを作るための土台が身につきます。</div>
+    </aside>
+
+    <main>
+      <div class="mobile-head"><strong>C# BASIC</strong><a href="#cheatsheet">早見表 ↓</a></div>
+
+      <header class="hero">
+        <div class="eyebrow">BEGINNER'S FIELD GUIDE</div>
+        <h1>C# はじめの<span>一歩。</span></h1>
+        <p class="hero-lead">「書き方のルール」を、動くコードと一緒に理解する。プログラミングが初めてでも迷わない、C#基本文法の入門ノートです。</p>
+        <div class="hero-meta">
+          <span class="meta-chip"><b>9</b> レッスン</span>
+          <span class="meta-chip"><b>約30分</b> で一周</span>
+          <span class="meta-chip"><b>.NET 8+</b> 対応</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="start-card" aria-labelledby="goal-title">
+          <div>
+            <h2 id="goal-title">ゴール：読める、書ける、動かせる。</h2>
+            <p>C#はWeb、ゲーム（Unity）、デスクトップアプリなど幅広く使われる言語です。まずは小さなコンソールプログラムから、言語の共通ルールを身につけましょう。</p>
+          </div>
+          <div class="roadmap" aria-label="学習ステップ">
+            <div class="road-step"><span>01</span>知る</div>
+            <div class="road-step"><span>02</span>まねる</div>
+            <div class="road-step"><span>03</span>変える</div>
+          </div>
+        </section>
+
+        <section class="lesson" id="structure">
+          <div class="section-head">
+            <div class="section-num">01</div>
+            <div><p class="section-kicker">Program structure</p><h2>プログラムの構造</h2><p class="section-lead">C#の命令は基本的に上から下へ実行されます。最初に、もっとも小さなプログラムを見てみましょう。</p></div>
+          </div>
+          <div class="definition"><strong>文（statement）</strong>コンピューターへの1つの命令。多くの文は末尾にセミコロン <code>;</code> を付けます。</div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> Program.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="cm">// 画面に文字を表示する</span>
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"Hello, C#!"</span>);</code></pre>
+          </div>
+          <div class="grid-3">
+            <article class="info-card"><span class="token">//</span><h3>コメント</h3><p>メモを書くための記号。実行結果には影響しません。</p></article>
+            <article class="info-card"><span class="token">Console.WriteLine</span><h3>出力命令</h3><p>丸括弧の中身をコンソールへ表示します。</p></article>
+            <article class="info-card"><span class="token">;</span><h3>文の終わり</h3><p>日本語の「。」のように、命令の区切りを示します。</p></article>
+          </div>
+          <div class="tip"><strong>今のC#は短く書ける</strong>古い教材では <code>class Program</code> や <code>static void Main</code> が登場します。.NET 6以降では「トップレベル ステートメント」により省略できます。</div>
+        </section>
+
+        <section class="lesson" id="variables">
+          <div class="section-head">
+            <div class="section-num">02</div>
+            <div><p class="section-kicker">Variables &amp; types</p><h2>変数とデータ型</h2><p class="section-lead">変数は、値を入れておく「名前付きの箱」。データ型は、その箱に何を入れられるかを決めるルールです。</p></div>
+          </div>
+          <div class="syntax-line"><span class="syntax-type">データ型</span><span class="syntax-name">変数名</span> = <span class="syntax-value">値</span>;<span class="syntax-note">← 宣言と代入</span></div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> variables.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">string</span> name = <span class="str">"Sora"</span>;      <span class="cm">// 文字列</span>
+<span class="type">int</span> age = <span class="num">20</span>;             <span class="cm">// 整数</span>
+<span class="type">double</span> height = <span class="num">168.5</span>;  <span class="cm">// 小数</span>
+<span class="type">bool</span> isStudent = <span class="kw">true</span>;  <span class="cm">// 真偽値</span>
+
+age = <span class="num">21</span>;                 <span class="cm">// 値を更新</span>
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{name}さんは{age}歳"</span>);</code></pre>
+          </div>
+          <table class="type-table">
+            <thead><tr><th>型</th><th>扱う値</th><th>例</th></tr></thead>
+            <tbody>
+              <tr><td><code>int</code></td><td>整数</td><td><code>42</code>, <code>-7</code></td></tr>
+              <tr><td><code>double</code></td><td>小数</td><td><code>3.14</code></td></tr>
+              <tr><td><code>decimal</code></td><td>高精度な小数（金額向き）</td><td><code>1200.50m</code></td></tr>
+              <tr><td><code>string</code></td><td>文字列</td><td><code>"Hello"</code></td></tr>
+              <tr><td><code>char</code></td><td>1文字</td><td><code>'A'</code></td></tr>
+              <tr><td><code>bool</code></td><td>真／偽</td><td><code>true</code>, <code>false</code></td></tr>
+            </tbody>
+          </table>
+          <div class="grid-2">
+            <article class="info-card"><span class="token">var score = 80;</span><h3>型推論</h3><p><code>var</code> を使うと右辺から型を自動判定します。型が消えるわけではなく、この例は <code>int</code> です。</p></article>
+            <article class="info-card"><span class="token">const double Pi = 3.14;</span><h3>定数</h3><p><code>const</code> を付けた値は後から変更できません。変わらない設定値に使います。</p></article>
+          </div>
+        </section>
+
+        <section class="lesson" id="operators">
+          <div class="section-head">
+            <div class="section-num">03</div>
+            <div><p class="section-kicker">Operators</p><h2>演算子</h2><p class="section-lead">値を計算したり、比べたり、条件を組み合わせたりするための記号です。</p></div>
+          </div>
+          <div class="grid-3">
+            <article class="info-card"><span class="token">+ - * / %</span><h3>算術演算子</h3><p>四則演算と、余りを求める <code>%</code>。</p></article>
+            <article class="info-card"><span class="token">== != &gt; &lt; &gt;= &lt;=</span><h3>比較演算子</h3><p>2つの値を比較し、結果は <code>bool</code> になります。</p></article>
+            <article class="info-card"><span class="token">&amp;&amp; || !</span><h3>論理演算子</h3><p>「かつ」「または」「ではない」で条件を組み合わせます。</p></article>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> operators.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">int</span> price = <span class="num">1200</span>;
+<span class="type">int</span> quantity = <span class="num">3</span>;
+<span class="type">int</span> total = price * quantity;     <span class="cm">// 3600</span>
+
+<span class="type">bool</span> canBuy = total &lt;= <span class="num">5000</span>;     <span class="cm">// true</span>
+<span class="type">bool</span> isMember = <span class="kw">true</span>;
+<span class="type">bool</span> hasDiscount = canBuy &amp;&amp; isMember;</code></pre>
+          </div>
+          <div class="tip"><strong><code>=</code> と <code>==</code> は別物</strong><code>=</code> は値を入れる「代入」、<code>==</code> は同じか調べる「比較」です。初心者が特に間違えやすいポイントです。</div>
+        </section>
+
+        <section class="lesson" id="conditions">
+          <div class="section-head">
+            <div class="section-num">04</div>
+            <div><p class="section-kicker">Conditions</p><h2>条件分岐</h2><p class="section-lead">条件によって実行する処理を切り替えます。「もし〜なら」をコードにしたものです。</p></div>
+          </div>
+          <div class="flow"><div class="flow-box">条件を調べる</div><div class="flow-arrow">→</div><div class="flow-box">true：if を実行</div><div class="flow-arrow">／</div><div class="flow-box">false：else を実行</div></div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> condition.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="type">int</span> score = <span class="num">78</span>;
+
+<span class="kw">if</span> (score &gt;= <span class="num">80</span>)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"合格：よくできました！"</span>);
+}
+<span class="kw">else if</span> (score &gt;= <span class="num">60</span>)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"合格です"</span>);
+}
+<span class="kw">else</span>
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"もう一度挑戦しよう"</span>);
+}</code></pre>
+          </div>
+          <div class="definition"><strong>ブロック</strong>波括弧 <code>{ }</code> で囲んだ処理のまとまり。インデント（字下げ）をそろえると構造が読みやすくなります。</div>
+        </section>
+
+        <section class="lesson" id="loops">
+          <div class="section-head">
+            <div class="section-num">05</div>
+            <div><p class="section-kicker">Loops</p><h2>繰り返し</h2><p class="section-lead">同じ処理を何度も行うときはループを使います。回数が決まっているなら <code>for</code>、集合を順に読むなら <code>foreach</code> が便利です。</p></div>
+          </div>
+          <div class="grid-2">
+            <div class="code-card">
+              <div class="code-bar"><span>for：回数で繰り返す</span><button class="copy-btn" type="button">COPY</button></div>
+              <pre><code><span class="kw">for</span> (<span class="type">int</span> i = <span class="num">1</span>; i &lt;= <span class="num">3</span>; i++)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{i}回目"</span>);
+}</code></pre>
+            </div>
+            <div class="code-card">
+              <div class="code-bar"><span>foreach：要素を順に読む</span><button class="copy-btn" type="button">COPY</button></div>
+              <pre><code><span class="type">string</span>[] colors = { <span class="str">"赤"</span>, <span class="str">"青"</span>, <span class="str">"緑"</span> };
+
+<span class="kw">foreach</span> (<span class="type">string</span> color <span class="kw">in</span> colors)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(color);
+}</code></pre>
+            </div>
+          </div>
+          <div class="definition"><strong>while ループ</strong>条件が <code>true</code> の間だけ繰り返します。条件が永遠に <code>true</code> だと無限ループになるため注意しましょう。</div>
+        </section>
+
+        <section class="lesson" id="methods">
+          <div class="section-head">
+            <div class="section-num">06</div>
+            <div><p class="section-kicker">Methods</p><h2>メソッド</h2><p class="section-lead">処理に名前を付けて再利用できるようにしたものです。「入力を受け取り、処理し、結果を返す」小さな部品として考えます。</p></div>
+          </div>
+          <div class="syntax-line"><span class="syntax-type">戻り値の型</span><span class="syntax-name">メソッド名</span> ( 引数 ) { 処理 };</div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> methods.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="cm">// 2つの整数を受け取り、合計を返す</span>
+<span class="type">int</span> <span class="fn">Add</span>(<span class="type">int</span> a, <span class="type">int</span> b)
+{
+    <span class="kw">return</span> a + b;
+}
+
+<span class="type">int</span> answer = <span class="fn">Add</span>(<span class="num">5</span>, <span class="num">3</span>);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(answer); <span class="cm">// 8</span></code></pre>
+          </div>
+          <div class="grid-3">
+            <article class="info-card"><span class="token">int</span><h3>戻り値の型</h3><p>返す値の種類。返さない場合は <code>void</code>。</p></article>
+            <article class="info-card"><span class="token">a, b</span><h3>引数</h3><p>メソッドが受け取る値。複数ならカンマで区切ります。</p></article>
+            <article class="info-card"><span class="token">return</span><h3>戻り値</h3><p>呼び出し元へ結果を返し、メソッドを終了します。</p></article>
+          </div>
+        </section>
+
+        <section class="lesson" id="collections">
+          <div class="section-head">
+            <div class="section-num">07</div>
+            <div><p class="section-kicker">Arrays &amp; lists</p><h2>配列とリスト</h2><p class="section-lead">複数の値をまとめて扱うための入れ物です。要素の位置を表すインデックスは <strong>0から</strong> 始まります。</p></div>
+          </div>
+          <div class="grid-2">
+            <article class="info-card"><span class="token">string[]</span><h3>配列</h3><p>作成後に要素数が変わらない集合。サイズが決まっているデータ向き。</p></article>
+            <article class="info-card"><span class="token">List&lt;string&gt;</span><h3>リスト</h3><p><code>Add</code> や <code>Remove</code> で要素を増減できる、柔軟な集合。</p></article>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> collections.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="cm">// 配列</span>
+<span class="type">int</span>[] scores = { <span class="num">80</span>, <span class="num">92</span>, <span class="num">75</span> };
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(scores[<span class="num">0</span>]); <span class="cm">// 80</span>
+
+<span class="cm">// リスト</span>
+<span class="type">List&lt;string&gt;</span> tasks = <span class="kw">new</span>() { <span class="str">"復習"</span>, <span class="str">"練習"</span> };
+tasks.<span class="fn">Add</span>(<span class="str">"ミニアプリを作る"</span>);
+<span class="type">Console</span>.<span class="fn">WriteLine</span>(tasks.Count); <span class="cm">// 3</span></code></pre>
+          </div>
+        </section>
+
+        <section class="lesson" id="classes">
+          <div class="section-head">
+            <div class="section-num">08</div>
+            <div><p class="section-kicker">Classes &amp; objects</p><h2>クラスとオブジェクト</h2><p class="section-lead">クラスはデータと処理をまとめた「設計図」。その設計図から作られた実体がオブジェクト（インスタンス）です。</p></div>
+          </div>
+          <div class="flow"><div class="flow-box"><b>クラス</b><br>Cat の設計図</div><div class="flow-arrow">→ new</div><div class="flow-box"><b>オブジェクト</b><br>mugi という猫</div><div class="flow-arrow">＋</div><div class="flow-box"><b>オブジェクト</b><br>sora という猫</div></div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> class.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="kw">class</span> <span class="type">Cat</span>
+{
+    <span class="kw">public</span> <span class="type">string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="str">""</span>;
+
+    <span class="kw">public void</span> <span class="fn">Meow</span>()
+    {
+        <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"{Name}: ニャー！"</span>);
+    }
+}
+
+<span class="type">Cat</span> mugi = <span class="kw">new</span> <span class="type">Cat</span>();
+mugi.Name = <span class="str">"ムギ"</span>;
+mugi.<span class="fn">Meow</span>();</code></pre>
+          </div>
+          <div class="definition"><strong>プロパティ</strong>オブジェクトが持つデータを表します。<code>get</code> は読み取り、<code>set</code> は書き込みを許可します。</div>
+        </section>
+
+        <section class="lesson" id="exceptions">
+          <div class="section-head">
+            <div class="section-num">09</div>
+            <div><p class="section-kicker">Exceptions</p><h2>例外処理</h2><p class="section-lead">実行中に起こる想定外の問題を「例外」と呼びます。<code>try-catch</code> で安全に受け止められます。</p></div>
+          </div>
+          <div class="code-card">
+            <div class="code-bar"><span><span class="code-dots">● ● ●</span> exception.cs</span><button class="copy-btn" type="button">COPY</button></div>
+            <pre><code><span class="kw">try</span>
+{
+    <span class="type">int</span> number = <span class="type">int</span>.<span class="fn">Parse</span>(<span class="str">"abc"</span>);
+}
+<span class="kw">catch</span> (<span class="type">FormatException</span>)
+{
+    <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"数字を入力してください"</span>);
+}</code></pre>
+          </div>
+          <div class="tip"><strong>まずはエラー文を読む</strong>エラーは「失敗」ではなく、直す場所を教えるヒントです。例外の種類・メッセージ・行番号の3つを確認しましょう。</div>
+        </section>
+
+        <section class="cheatsheet" id="cheatsheet">
+          <p class="section-kicker">QUICK REFERENCE</p>
+          <h2>基本文法 早見表</h2>
+          <div class="cheat-grid">
+            <div class="cheat-row"><code>Console.WriteLine()</code><span>画面へ出力</span></div>
+            <div class="cheat-row"><code>// コメント</code><span>1行コメント</span></div>
+            <div class="cheat-row"><code>if / else</code><span>条件で処理を分ける</span></div>
+            <div class="cheat-row"><code>for / foreach</code><span>処理を繰り返す</span></div>
+            <div class="cheat-row"><code>return</code><span>メソッドから値を返す</span></div>
+            <div class="cheat-row"><code>new</code><span>オブジェクトを作る</span></div>
+            <div class="cheat-row"><code>$"{name}"</code><span>文字列へ値を埋め込む</span></div>
+            <div class="cheat-row"><code>null</code><span>値が存在しない状態</span></div>
+          </div>
+        </section>
+      </div>
+
+      <footer><strong>NEXT STEP:</strong> コード例の数値や文字列を変えて、結果を予想してから実行してみよう。</footer>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const code = button.closest('.code-card').querySelector('code').innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'COPIED!';
+          setTimeout(() => button.textContent = 'COPY', 1400);
+        } catch {
+          button.textContent = '選択してコピー';
+        }
+      });
+    });
+
+    const lessonLinks = [...document.querySelectorAll('.lesson-nav a')];
+    const sections = lessonLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          lessonLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach((section) => observer.observe(section));
+  </script>
+</body>
+</html>

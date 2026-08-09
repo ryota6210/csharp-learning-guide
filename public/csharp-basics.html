@@ -253,6 +253,18 @@
     .practice strong { display: block; color: #876800; }
     .practice p { margin: 4px 0 0; color: var(--ink-soft); font-size: 13px; }
     .term { color: var(--blue); font-weight: 800; }
+    .code-review { margin: 24px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+    .code-review > summary { padding: 15px 18px; color: var(--ink); background: #ede8da; cursor: pointer; font-weight: 800; }
+    .code-review > summary::before { content: "CODE REVIEW"; display: inline-block; margin-right: 10px; padding: 2px 7px; color: #fff; background: var(--ink); border-radius: 4px; font: 700 9px/1.6 Consolas, monospace; letter-spacing: .08em; }
+    .review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 16px; }
+    .review-side { min-width: 0; border: 1px solid; border-radius: 11px; overflow: hidden; }
+    .review-side.bad { border-color: #e6aaa2; background: #fff5f3; }
+    .review-side.good { border-color: #9bc9ad; background: #f0faf4; }
+    .review-label { display: block; padding: 8px 12px; font-size: 12px; font-weight: 900; }
+    .bad .review-label { color: #9d342a; background: #f8d8d3; }
+    .good .review-label { color: #226640; background: #d7efdf; }
+    .review-side pre { margin: 0; padding: 14px; color: var(--code-text); background: var(--code); border-radius: 0; font-size: 11px; line-height: 1.65; }
+    .review-reason { margin: 0; padding: 11px 13px; color: var(--ink-soft); font-size: 12px; line-height: 1.65; }
 
     .syntax-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 22px 0; padding: 18px; color: #fff; background: var(--ink); border-radius: 13px; font: 700 13px/1.6 Consolas, monospace; }
     .syntax-line span { padding: 4px 8px; border-radius: 5px; }
@@ -303,6 +315,7 @@
       .type-table { display: block; overflow-x: auto; white-space: nowrap; }
       .cheat-row { grid-template-columns: 105px 1fr; }
       .reading-steps { grid-template-columns: 1fr; }
+      .review-grid { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -372,7 +385,7 @@
         <section class="book-intro" aria-labelledby="how-to-read">
           <p class="section-kicker">HOW TO USE THIS BOOK</p>
           <h2 id="how-to-read">この教材の読み方</h2>
-          <p>各章は「概念を知る → 例を読む → 実行結果を確かめる → 注意点を理解する」の順に構成しています。最初から順番に読んでも、左の目次から必要な章だけ参照しても構いません。</p>
+          <p>各章は「概念を知る → 例を読む → 実行結果を確かめる → 良いコードと悪いコードを比較する → 注意点を理解する」の順に構成しています。最初から順番に読んでも、左の目次から必要な章だけ参照しても構いません。</p>
           <div class="reading-steps">
             <div class="reading-step"><b>01 / READ</b>用語と文法の目的を理解する</div>
             <div class="reading-step"><b>02 / TRACE</b>コードを上から追い、結果を予想する</div>
@@ -431,6 +444,9 @@ count = count + <span class="num">1</span>;          <span class="cm">// ② 2�
             <div class="output-box">2</div>
           </div>
           <div class="warning"><strong>コンパイルエラーと実行時エラーを区別する</strong>セミコロン忘れや名前の間違いは実行前に見つかるコンパイルエラーです。0除算など実行して初めて起きる問題は実行時エラーです。まずエラーの種類と行番号を確認します。</div>
+          <details class="code-review"><summary>読みやすい文と名前にする</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>int x=1;x=x+1;Console.WriteLine(x);</code></pre><p class="review-reason">複数の処理が1行に詰まり、変数の意味も読み取れません。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>int retryCount = 1;
+retryCount++;
+Console.WriteLine(retryCount);</code></pre><p class="review-reason">1文1行と具体的な名前により、処理の順序と目的が分かります。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>C#の文は基本的に上から下へ実行される</li><li>多くの文は <code>;</code>、処理のまとまりは <code>{ }</code> で表す</li><li><code>dotnet run</code> でビルドと実行をまとめて行える</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>名前・今日の日付・学習目標を、それぞれ別の <code>Console.WriteLine</code> で表示してください。</p></div>
         </section>
@@ -489,6 +505,9 @@ exact: 2.5
 taxIncluded: 2178.00</div>
           </div>
           <div class="warning"><strong>数値型は目的に合わせる</strong><code>double</code> は近似値なので、金額のように誤差を避けたい計算は <code>decimal</code> を使います。また、型の最大値を超えるとオーバーフローします。必要なら <code>checked</code> で検出します。</div>
+          <details class="code-review"><summary>型と変数名で意図を表す</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>double a = 1980;
+var b = a * 1.1;</code></pre><p class="review-reason">金額に近似値のdoubleを使い、a・bの意味も不明です。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>decimal price = 1980m;
+decimal totalWithTax = price * 1.10m;</code></pre><p class="review-reason">金額向けの型と具体的な名前で、誤差と読み間違いを防ぎます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>変数には型・名前・値があり、型によって可能な操作が決まる</li><li><code>var</code> もコンパイル時には具体的な型へ決まる</li><li>値型の代入は値をコピーし、参照型の代入は参照をコピーする</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>商品の単価・個数・税率を変数にし、税込合計を <code>decimal</code> で計算してください。</p></div>
         </section>
@@ -542,6 +561,9 @@ taxIncluded: 2178.00</div>
           </div>
           <details class="deep-dive"><summary>エスケープ文字とraw文字列</summary><div><p><code>\n</code> は改行、<code>\t</code> はタブ、<code>\"</code> は引用符です。C# 11以降のraw文字列 <code>""" ... """</code> はJSONや複数行テキストをそのまま書くときに便利です。</p></div></details>
           <div class="warning"><strong>stringは変更不可（immutable）</strong><code>Replace</code> や <code>Trim</code> は元の文字列を変更せず、新しい文字列を返します。大量の結合をループで行う場合は <code>StringBuilder</code> を検討します。</div>
+          <details class="code-review"><summary>入力失敗を通常の分岐として扱う</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>int age = int.Parse(Console.ReadLine());</code></pre><p class="review-reason">nullや数字以外の入力で、すぐ例外になります。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>string? input = Console.ReadLine();
+if (!int.TryParse(input, out int age))
+    Console.WriteLine("整数を入力してください");</code></pre><p class="review-reason">想定できる入力ミスを安全に判定し、利用者へ理由を伝えます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>コンソール入力は <code>string?</code> として受け取る</li><li>数値変換は失敗を扱える <code>TryParse</code> が基本</li><li>文字列補間、分割、置換、空白除去を組み合わせて整形する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>「姓,名」の入力を分割し、<code>名 姓</code> の順へ並べ替えて表示してください。</p></div>
         </section>
@@ -577,6 +599,9 @@ taxIncluded: 2178.00</div>
 totalB += <span class="num">200</span>; <span class="cm">// totalB = totalB + 200</span>
 quantity++;  <span class="cm">// quantityを1増やす</span></code></pre></div><div class="output-box">totalA: 1600<br>totalB: 2800<br>quantity: 3</div></div>
           <div class="warning"><strong>小数の比較と短絡評価</strong><code>double</code> を <code>==</code> で厳密比較すると計算誤差で意図しない結果になることがあります。また <code>&amp;&amp;</code> の右側は左側がtrueのときだけ評価されるため、null確認を先に書けます。</div>
+          <details class="code-review"><summary>複雑な条件を名前で分解する</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>if (a &gt;= 18 &amp;&amp; b &amp;&amp; c != null &amp;&amp; c.Length &gt; 0) { }</code></pre><p class="review-reason">a・b・cの意味がなく、条件の目的も見えません。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>bool isAdult = age &gt;= 18;
+bool hasPermission = isMember &amp;&amp; !string.IsNullOrEmpty(code);
+if (isAdult &amp;&amp; hasPermission) { }</code></pre><p class="review-reason">中間のbool変数が、条件式を文章のように説明します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>算術・比較・論理演算子は、それぞれ値の計算・比較・条件結合に使う</li><li>複雑な式は括弧と中間変数で意図を見せる</li><li><code>&amp;&amp;</code> と <code>||</code> は短絡評価される</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>所持金・価格・在庫数を使い、「購入可能か」を1つのbool式で判定してください。</p></div>
         </section>
@@ -628,6 +653,14 @@ quantity++;  <span class="cm">// quantityを1増やす</span></code></pre></div>
     <span class="kw">return</span> <span class="str">"大人"</span>;
 }</code></pre></div><div class="output-box">GetTicketType(4) → 無料<br>GetTicketType(20) → 大人<br>GetTicketType(70) → シニア</div></div>
           <div class="warning"><strong>条件の順番で結果が変わる</strong><code>else if</code> は最初にtrueになったブロックだけを実行します。広い条件を先に書くと、後の細かい条件へ到達しません。境界値（0、59、60、79、80など）を必ず確認します。</div>
+          <details class="code-review"><summary>深いネストをガード節で減らす</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>if (user != null) {
+  if (user.IsActive) {
+    if (user.Age &gt;= 18) Process(user);
+  }
+}</code></pre><p class="review-reason">正常処理へ到達するまで条件が何段も入れ子になります。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>if (user is null) return;
+if (!user.IsActive) return;
+if (user.Age &lt; 18) return;
+Process(user);</code></pre><p class="review-reason">処理できない理由を先に除外し、主処理を目立たせます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>二択・段階的判定・値による分岐で <code>if</code> と <code>switch</code> を使い分ける</li><li>異常条件を先に返すガード節でネストを浅くする</li><li>境界値を例にして条件漏れや重複を確認する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>気温を受け取り、「寒い・快適・暑い」を返すメソッドを作り、境界値も試してください。</p></div>
         </section>
@@ -675,6 +708,9 @@ quantity++;  <span class="cm">// quantityを1増やす</span></code></pre></div>
     <span class="type">Console</span>.<span class="fn">WriteLine</span>();
 }</code></pre></div><div class="output-box">&nbsp;&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3<br>&nbsp;&nbsp;2&nbsp;&nbsp;4&nbsp;&nbsp;6<br>&nbsp;&nbsp;3&nbsp;&nbsp;6&nbsp;&nbsp;9</div></div>
           <div class="warning"><strong>off-by-one（1つずれる）に注意</strong>要素数が <code>Length</code> の配列で使える最大インデックスは <code>Length - 1</code> です。通常は <code>i &lt; items.Length</code> と書き、<code>&lt;=</code> にしません。</div>
+          <details class="code-review"><summary>配列の境界を正しく扱う</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>for (int i = 0; i &lt;= items.Length; i++)
+    Console.WriteLine(items[i]);</code></pre><p class="review-reason">最後に存在しない <code>items[Length]</code> を読み、例外になります。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>foreach (string item in items)
+    Console.WriteLine(item);</code></pre><p class="review-reason">インデックスが不要ならforeachを使い、境界ミスをなくします。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>回数なら <code>for</code>、全要素なら <code>foreach</code>、条件継続なら <code>while</code></li><li><code>break</code> は終了、<code>continue</code> は次の繰り返しへ進む</li><li>無限ループと境界の1つずれを重点的に確認する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>1〜100のうち、3の倍数だけを合計してください。次に <code>for</code> と <code>while</code> の両方で書いてみます。</p></div>
         </section>
@@ -725,6 +761,13 @@ quantity++;  <span class="cm">// quantityを1増やす</span></code></pre></div>
 <span class="type">decimal</span> total = <span class="fn">CalculateTotal</span>(<span class="num">480m</span>, <span class="num">3</span>);
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"合計: {total:N0}円"</span>);</code></pre></div><div class="output-box">合計: 1,440円</div></div>
           <div class="warning"><strong>引数を増やしすぎない</strong>引数が多いメソッドは呼び間違いやすく、役割も広がりがちです。関連する値はクラスやrecordへまとめ、bool引数で動作を切り替えるより別メソッドに分けます。</div>
+          <details class="code-review"><summary>計算と入出力を分離する</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>void Run() {
+  int a = int.Parse(Console.ReadLine());
+  Console.WriteLine(a * 1.1);
+}</code></pre><p class="review-reason">入力・計算・表示が混ざり、計算だけを再利用・テストできません。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>decimal AddTax(decimal price) =&gt; price * 1.10m;
+
+decimal total = AddTax(price);
+Console.WriteLine(total);</code></pre><p class="review-reason">計算を副作用のない小さなメソッドへ分けています。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>メソッドは入力・処理・出力を持つ再利用可能な部品</li><li>1つの役割に絞り、副作用の少ない計算メソッドを作る</li><li>引数と戻り値の型を、メソッドの契約として考える</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>摂氏を華氏へ変換する <code>ToFahrenheit(double celsius)</code> を作り、-10、0、30で試してください。</p></div>
         </section>
@@ -764,6 +807,8 @@ items.<span class="fn">Sort</span>();
 <span class="kw">foreach</span> (<span class="type">string</span> item <span class="kw">in</span> items)
     <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">$"・{item}"</span>);</code></pre></div><div class="output-box">・卵<br>・牛乳</div></div>
           <div class="warning"><strong>列挙中にコレクションを変更しない</strong><code>foreach</code> の途中で同じListへ <code>Add</code> や <code>Remove</code> を行うと例外になります。削除対象を先に集める、後ろからforで回す、<code>RemoveAll</code> を使うなどで対応します。</div>
+          <details class="code-review"><summary>列挙と変更を安全に分ける</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>foreach (int score in scores)
+  if (score &lt; 60) scores.Remove(score);</code></pre><p class="review-reason">foreach中に元のListを変更するため例外になります。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>scores.RemoveAll(score =&gt; score &lt; 60);</code></pre><p class="review-reason">目的を直接表す専用メソッドで、安全かつ簡潔です。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>固定長なら配列、増減する順序付きデータならList</li><li>インデックスは0から始まり、末尾は <code>Count - 1</code></li><li>要素型を統一することでコンパイル時に誤りを検出できる</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>5件の点数をListに追加し、最高点・最低点・平均点を表示してください。</p></div>
         </section>
@@ -804,6 +849,10 @@ items.<span class="fn">Sort</span>();
 
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(counts[<span class="str">"C#"</span>]);</code></pre></div><div class="output-box">2</div></div>
           <div class="warning"><strong>存在しないキーを[]で読むと例外</strong><code>dictionary[key]</code> はキーがなければ <code>KeyNotFoundException</code> です。存在が不明なときは <code>TryGetValue</code> を使います。文字列キーの大文字小文字を同一視するかも最初に決めます。</div>
+          <details class="code-review"><summary>未知のキーを安全に検索する</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>Console.WriteLine(prices[input]);</code></pre><p class="review-reason">入力と同じキーがなければ、処理全体が例外で停止します。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>if (prices.TryGetValue(input, out decimal price))
+    Console.WriteLine(price);
+else
+    Console.WriteLine("未登録です");</code></pre><p class="review-reason">見つからない場合も通常の分岐として扱えます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>Dictionaryはキー検索、HashSetは重複排除、タプルは小さな一時データ</li><li>検索前に存在確認するか <code>TryGetValue</code> を使う</li><li>コレクション選択はデータをどう探すかで決める</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>商品名と価格をDictionaryで管理し、入力された商品があれば価格、なければ「未登録」と表示してください。</p></div>
         </section>
@@ -849,6 +898,14 @@ mugi.<span class="fn">Meow</span>();
     }
 }</code></pre></div></div>
           <div class="warning"><strong>参照型の代入は同じ実体を指す</strong><code>BankAccount b = a;</code> の後で <code>b.Deposit</code> すると、<code>a.Balance</code> も変わります。独立した複製が必要なら、コピー用の処理を明示的に作ります。</div>
+          <details class="code-review"><summary>不正な状態を外部から作らせない</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>class Account {
+  public decimal Balance { get; set; }
+}
+account.Balance = -100000;</code></pre><p class="review-reason">どこからでも残高を不正な値へ変更できます。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>public decimal Balance { get; private set; }
+public void Withdraw(decimal amount) {
+  if (amount &gt; Balance) throw new InvalidOperationException();
+  Balance -= amount;
+}</code></pre><p class="review-reason">状態変更をメソッドへ集め、ルールを必ず通します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>クラスは状態と、その状態を扱う操作をまとめた設計図</li><li>コンストラクターで必須値を受け取り、不正な状態を作らせない</li><li>必要最小限だけpublicにすることがカプセル化の基本</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>名前と在庫数を持つ <code>Product</code> クラスを作り、在庫を減らすメソッドで負数にならないよう検証してください。</p></div>
         </section>
@@ -885,6 +942,10 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
 <span class="kw">foreach</span> (<span class="type">INotifier</span> item <span class="kw">in</span> notifiers)
     item.<span class="fn">Send</span>(<span class="str">"完了"</span>);</code></pre></div><div class="output-box">Email: 完了<br>Console: 完了</div></div>
           <div class="warning"><strong>深い継承階層を作らない</strong>基底クラスの変更が多くの派生クラスへ影響します。共通コードがあるという理由だけで継承せず、契約はinterface、処理の再利用は小さな部品の組み合わせも検討します。</div>
+          <details class="code-review"><summary>型判定よりポリモーフィズムを使う</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>if (notifier is EmailNotifier) SendEmail();
+else if (notifier is SmsNotifier) SendSms();</code></pre><p class="review-reason">実装が増えるたびに条件分岐を修正する必要があります。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>interface INotifier { void Send(string message); }
+
+notifier.Send("完了");</code></pre><p class="review-reason">新しい実装を追加しても、呼び出し側は変更不要です。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>継承はis-a、コンポジションはhas-aの関係</li><li>interfaceを介すと実装の差し替えとテストが容易になる</li><li>ポリモーフィズムにより異なる実装を共通の型で扱える</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p><code>IShape</code> に <code>GetArea()</code> を定義し、CircleとRectangleで別々に実装してください。</p></div>
         </section>
@@ -918,6 +979,10 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">NormalizeName</span>(<span class="str">"  Aoi  "</span>));
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="fn">NormalizeName</span>(<span class="kw">null</span>));</code></pre></div><div class="output-box">Aoi<br>ゲスト</div></div>
           <div class="warning"><strong>null免責演算子 ! は保証ではない</strong><code>value!</code> はコンパイラ警告を抑えるだけで、実行時のnullを防ぎません。外部入力・DB・APIの値は実際にチェックします。</div>
+          <details class="code-review"><summary>警告を消すよりnullを処理する</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>string name = Console.ReadLine()!;
+Console.WriteLine(name.Length);</code></pre><p class="review-reason"><code>!</code> は実行時のnullを防がず、問題を隠しています。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>string? input = Console.ReadLine();
+string name = string.IsNullOrWhiteSpace(input)
+    ? "ゲスト" : input.Trim();</code></pre><p class="review-reason">null・空文字・空白を実際に処理し、有効な値へ整えます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li><code>T?</code> はnullの可能性を型に表す</li><li><code>?.</code>、<code>??</code>、パターンマッチで安全に分岐する</li><li>nullable警告は設計上の問題を見つける手掛かりとして扱う</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>null、空文字、空白だけの文字列、通常の名前を受け取り、安全に表示名を返す処理を作ってください。</p></div>
         </section>
@@ -954,6 +1019,12 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
     <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="str">"読み取り権限がありません"</span>);
 }</code></pre></div></div>
           <div class="warning"><strong>例外を握りつぶさない</strong>空の <code>catch { }</code> は障害原因を消してしまいます。復旧できない例外はログへ十分な情報を残して再throwするか、上位層へ任せます。秘密情報はログへ出しません。</div>
+          <details class="code-review"><summary>例外を隠さず、具体的に扱う</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>try { Save(); }
+catch { }</code></pre><p class="review-reason">失敗を完全に無視し、データが保存されたように見えてしまいます。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>try { Save(); }
+catch (UnauthorizedAccessException ex) {
+  logger.LogError(ex, "保存権限がありません");
+  throw;
+}</code></pre><p class="review-reason">扱える例外を限定し、原因を残して上位へ伝えます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>予想外の失敗は例外、通常起こり得る分岐は戻り値で扱う</li><li>具体的な例外を先、一般的な例外を後にcatchする</li><li>エラーメッセージ・例外型・スタックトレースを読む</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>存在しないファイル、数値でない入力、0除算をそれぞれ発生させ、例外型とメッセージを確認してください。</p></div>
         </section>
@@ -988,6 +1059,9 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
 
 <span class="kw">record</span> <span class="type">Sale</span>(<span class="type">string</span> Category, <span class="type">int</span> Amount);</code></pre></div><div class="output-box">Book: 2000<br>Game: 5000</div></div>
           <div class="warning"><strong>FirstとSingleを使い分ける</strong><code>First</code> は最初の1件、<code>Single</code> は必ず1件だけであることを検証します。0件の可能性がある場合は <code>FirstOrDefault</code> を使い、戻り値のnullも処理します。</div>
+          <details class="code-review"><summary>長いLINQを意味のある段階へ分ける</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>var x = a.Where(v =&gt; v.P &gt; 0).Select(v =&gt; v.P * v.Q).OrderBy(v =&gt; v).ToList();</code></pre><p class="review-reason">短い名前と1行の連鎖で、処理目的が伝わりません。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>var availableProducts = products.Where(p =&gt; p.Stock &gt; 0);
+var subtotals = availableProducts.Select(p =&gt; p.Price * p.Stock);
+List&lt;decimal&gt; orderedTotals = subtotals.OrderBy(x =&gt; x).ToList();</code></pre><p class="review-reason">各段階の名前が、データ変換の流れを説明します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>Whereで絞り、Selectで変換し、OrderByで並べる</li><li>Count・Sum・Average・GroupByで集計する</li><li>遅延実行と複数回列挙を意識し、必要な時点でToListする</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>商品一覧から1000円以上だけを価格順に並べ、「商品名: 価格」の文字列リストへ変換してください。</p></div>
         </section>
@@ -1025,6 +1099,9 @@ notifier.<span class="fn">Send</span>(<span class="str">"処理が完了しま�
 
 <span class="kw">record</span> <span class="type">Result&lt;T&gt;</span>(<span class="type">bool</span> IsSuccess, <span class="type">T</span>? Value, <span class="type">string</span>? Error);</code></pre></div></div>
           <div class="warning"><strong>何でもジェネリックにしない</strong>複数の型で本当に同じ振る舞いをする場合に使います。型ごとの分岐が大量に必要なら、interfaceやオーバーロードの方が意図を表せることがあります。</div>
+          <details class="code-review"><summary>objectではなく型パラメーターを使う</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>object First(object[] items) =&gt; items[0];
+int value = (int)First(items);</code></pre><p class="review-reason">キャストが必要で、型の間違いが実行時まで分かりません。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>T First&lt;T&gt;(T[] items) =&gt; items[0];
+int value = First(numbers);</code></pre><p class="review-reason">戻り値の型が保たれ、誤った型はコンパイル時に検出されます。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>ジェネリックは型安全な再利用を実現する</li><li>型制約でTに必要な能力を宣言する</li><li>呼び出し側から型を推論できる場合は型引数を省略できる</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>2つの値を交換する <code>Swap&lt;T&gt;</code> を作り、intとstringの両方で試してください。</p></div>
         </section>
@@ -1058,6 +1135,10 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
 <span class="fn">Process</span>(<span class="kw">new</span>[] { <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span> },
     number =&gt; <span class="type">Console</span>.<span class="fn">WriteLine</span>(number * number));</code></pre></div><div class="output-box">1<br>4<br>9</div></div>
           <div class="warning"><strong>イベント購読の解除を忘れない</strong>長寿命オブジェクトのイベントを短寿命オブジェクトが購読し続けると、不要な参照が残ることがあります。不要になったら <code>-=</code> で解除します。ラムダが外側の変数を捕捉する「クロージャ」にも注意します。</div>
+          <details class="code-review"><summary>解除できる形でイベントを購読する</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>service.Completed += () =&gt; Console.WriteLine("完了");</code></pre><p class="review-reason">匿名ラムダを後から同じ参照で指定できず、解除しにくい書き方です。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>void OnCompleted() =&gt; Console.WriteLine("完了");
+service.Completed += OnCompleted;
+// 不要になったら
+service.Completed -= OnCompleted;</code></pre><p class="review-reason">名前付きハンドラーなら購読と解除が対応します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>ラムダ式は名前のない短い処理</li><li>Func・Action・Predicateで処理を型として表せる</li><li>eventは発行側から複数の購読側へ通知する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>Listの数値を受け取り、偶数だけを表示する処理をPredicateとActionを使って分けてください。</p></div>
         </section>
@@ -1089,6 +1170,7 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="kw">await</span> userTask);
 <span class="type">Console</span>.<span class="fn">WriteLine</span>(<span class="kw">await</span> newsTask);</code></pre></div></div>
           <div class="warning"><strong>並行と並列は同じではない</strong>async/awaitは主にI/O待機を効率化します。CPU負荷の高い処理を速くする仕組みではありません。大量のタスクを無制限に開始せず、APIやファイルの同時実行数を制御します。</div>
+          <details class="code-review"><summary>同期的に待たずawaitする</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>string text = client.GetStringAsync(url).Result;</code></pre><p class="review-reason">スレッドをブロックし、環境によってはデッドロックを起こします。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>string text = await client.GetStringAsync(url, cancellationToken);</code></pre><p class="review-reason">非同期の流れを維持し、キャンセルにも対応します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>awaitはTaskの完了を非同期に待つ</li><li>独立した処理はWhenAll、順序が必要なら順番にawaitする</li><li>キャンセル・タイムアウト・例外の扱いも呼び出し側まで設計する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>500ms、1000ms、1500ms待つ3つのTaskを作り、順番実行とWhenAllの所要時間を比較してください。</p></div>
         </section>
@@ -1122,6 +1204,10 @@ log(<span class="str">$"答え: {add(2, 3)}"</span>);
 
 <span class="kw">record</span> <span class="type">Settings</span>(<span class="type">string</span> Theme, <span class="type">int</span> FontSize);</code></pre></div><div class="output-box">{"Theme":"dark","FontSize":16}</div></div>
           <div class="warning"><strong>パスと文字コードを決めつけない</strong>カレントディレクトリは実行方法で変わることがあります。<code>Path.Combine</code> を使い、ファイルの存在・権限・同時アクセス・破損を例外として想定します。ユーザー入力をそのままパスに使いません。</div>
+          <details class="code-review"><summary>パスを文字列連結で作らない</summary><div class="review-grid"><div class="review-side bad"><span class="review-label">× 悪いコード</span><pre><code>string path = folder + "/" + fileName;
+File.WriteAllText(path, data);</code></pre><p class="review-reason">OSごとの区切りや不正な入力を考慮せず、同期I/Oで停止します。</p></div><div class="review-side good"><span class="review-label">○ 良いコード</span><pre><code>string safeName = Path.GetFileName(fileName);
+string path = Path.Combine(folder, safeName);
+await File.WriteAllTextAsync(path, data);</code></pre><p class="review-reason">専用APIで安全にパスを構築し、非同期で保存します。</p></div></div></details>
           <div class="chapter-summary"><strong>この章の要点</strong><ul><li>FileとPathでOS差を意識した読み書きを行う</li><li>JSONでオブジェクトを保存・復元できる</li><li>コードが増えたらnamespace、フォルダ、プロジェクト、テストへ分割する</li></ul></div>
           <div class="practice"><strong>手を動かす</strong><p>学習項目と完了状態をrecordで表し、ListをJSONファイルへ保存して次回起動時に読み戻してください。</p></div>
         </section>
